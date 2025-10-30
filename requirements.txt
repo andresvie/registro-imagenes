@@ -1,0 +1,35 @@
+# Visión por Computador - Registro de Imágenes
+# Trabajo 2: Fusión de Perspectivas - Registro de Imágenes y Medición del Mundo Real
+
+# Procesamiento de imágenes y visión por computador
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0  # Para detectores adicionales (SIFT, etc.)
+
+# Cálculo numérico y matemático
+numpy>=1.24.0
+scipy>=1.10.0
+
+# Procesamiento de imágenes adicional
+scikit-image>=0.21.0
+
+# Visualización
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# Jupyter notebook
+jupyter>=1.0.0
+ipykernel>=6.25.0
+notebook>=7.0.0
+jupyterlab>=4.0.0  # Opcional, pero recomendado
+
+# Utilidades para manejo de datos
+pandas>=2.0.0
+Pillow>=10.0.0
+
+# Utilidades adicionales
+tqdm>=4.65.0  # Para barras de progreso
+
+# Para procesar PDFs (opcional, para lectura de documentos)
+PyPDF2>=3.0.0
+pypdf>=3.0.0
+

@@ -1,0 +1,39 @@
+# Configuración para GitHub Pages con Jekyll
+
+theme: jekyll-theme-minimal
+
+title: Trabajo 2 - Registro de Imágenes
+description: Fusión de Perspectivas - Registro de Imágenes y Medición del Mundo Real
+author: Universidad Nacional de Colombia
+
+# Configuración de GitHub Pages
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Incluir archivos estáticos
+include:
+  - notebooks/
+  - results/
+  - data/
+
+# Excluir archivos del procesamiento de Jekyll
+exclude:
+  - venv/
+  - .git/
+  - __pycache__/
+  - *.pyc
+  - .DS_Store
+
+# Configuración de Markdown
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+# Configuración de sintaxis highlighting
+highlighter: rouge
+
+# Configuración de servidor local (para desarrollo)
+port: 4000
+
