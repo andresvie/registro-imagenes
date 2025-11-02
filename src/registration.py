@@ -1,205 +1,181 @@
-"""
-Módulo para registro de imágenes.
-Implementa estimación de homografías y fusión de imágenes.
-"""
-
-import cv2
 import numpy as np
-from typing import Tuple, Optional, List
-
-# Imports locales
-try:
-    from .matching import FeatureMatcher
-    from .feature_detection import FeatureDetector
-except ImportError:
-    # Si falla el import relativo, usar import absoluto
-    import sys
-    import os
-    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    from src.matching import FeatureMatcher
-    from src.feature_detection import FeatureDetector
-
+import cv2
+from typing import Tuple, Dict
+from src.feature_detection import FeatureDetector
+from src.matching import FeatureMatcher
 
 class ImageRegistrator:
-    """Clase para registrar y fusionar imágenes."""
-    
-    def __init__(self, detector_method: str = 'SIFT', 
-                 matcher_method: str = 'FLANN',
-                 ratio_threshold: float = 0.75,
-                 ransac_threshold: float = 5.0):
+    def __init__(self, detector: FeatureDetector, matcher: FeatureMatcher):
+        self.detector = detector
+        self.matcher = matcher
+
+    def register_images(self, img_ref: np.ndarray, img_mov: np.ndarray) -> Dict:
         """
-        Inicializa el registrador de imágenes.
+        Registro completo de dos imágenes
         
-        Args:
-            detector_method: Método de detección ('SIFT', 'ORB', 'AKAZE')
-            matcher_method: Método de matching ('FLANN', 'BF')
-            ratio_threshold: Umbral para ratio test de Lowe
-            ransac_threshold: Umbral para RANSAC
-        """
-        self.detector = FeatureDetector(method=detector_method)
-        self.matcher = FeatureMatcher(method=matcher_method, ratio_threshold=ratio_threshold)
-        self.ransac_threshold = ransac_threshold
-    
-    def estimate_homography(self, src_points: np.ndarray, 
-                           dst_points: np.ndarray,
-                           ransac: bool = True) -> Tuple[np.ndarray, np.ndarray]:
-        """
-        Estima la homografía entre dos conjuntos de puntos.
-        
-        Args:
-            src_points: Puntos fuente (N, 2)
-            dst_points: Puntos destino (N, 2)
-            ransac: Si usar RANSAC para filtrar outliers
-    
         Returns:
-            homography: Matriz de homografía (3, 3)
-            mask: Máscara de inliers
-        """
-        if len(src_points) < 4:
-            raise ValueError("Se necesitan al menos 4 puntos para estimar una homografía")
-        
-        if ransac:
-            homography, mask = cv2.findHomography(
-                src_points,
-                dst_points,
-                method=cv2.RANSAC,
-                ransacReprojThreshold=self.ransac_threshold,
-                confidence=0.99,
-                maxIters=2000
-            )
-        else:
-            homography, mask = cv2.findHomography(
-                src_points,
-                dst_points,
-                method=0
-            )
-            if mask is None:
-                mask = np.ones((len(src_points),), dtype=np.uint8)
-        
-        return homography, mask
-    
-    def register_pair(self, image1: np.ndarray, image2: np.ndarray) -> Tuple[np.ndarray, int]:
-        """
-        Registra un par de imágenes.
-        
-        Args:
-            image1: Primera imagen (referencia)
-            image2: Segunda imagen (a registrar)
-    
-        Returns:
-            homography: Matriz de homografía desde image2 a image1
-            num_matches: Número de matches usados
+            Diccionario con resultados del registro
         """
         # Detectar características
-        kp1, desc1 = self.detector.detect_and_compute(image1)
-        kp2, desc2 = self.detector.detect_and_compute(image2)
-        
-        if desc1 is None or len(desc1) == 0:
-            raise ValueError("No se encontraron características en la primera imagen")
-        if desc2 is None or len(desc2) == 0:
-            raise ValueError("No se encontraron características en la segunda imagen")
+        kp1, desc1 = self.detector.detect_and_compute(img_ref)
+        kp2, desc2 = self.detector.detect_and_compute(img_mov)
         
         # Emparejar características
-        all_matches = self.matcher.match(desc1, desc2)
-        good_matches = self.matcher.filter_matches(all_matches)
+        matches = self.matcher.match_features(desc1, desc2)
         
-        if len(good_matches) < 4:
-            raise ValueError(f"Solo se encontraron {len(good_matches)} matches, se necesitan al menos 4")
+        # Estimar transformación
+        M, mask = self.matcher.estimate_transform(kp1, kp2, matches)
         
-        # Extraer puntos correspondientes
-        src_pts, dst_pts = self.matcher.get_matched_points(kp1, kp2, good_matches)
+        # Aplicar transformación
+        h, w = img_ref.shape[:2]
+        img_registered = None
+        if M is not None:
+            img_registered = cv2.warpPerspective(img_mov, M, (w, h))
         
-        # Estimar homografía
-        homography, mask = self.estimate_homography(src_pts, dst_pts, ransac=True)
-        
-        num_inliers = np.sum(mask) if mask is not None else len(good_matches)
-        
-        return homography, num_inliers
+        return {
+            'keypoints_ref': kp1,
+            'keypoints_mov': kp2,
+            'matches': matches,
+            'inliers_mask': mask,
+            'transform_matrix': M,
+            'registered_image': img_registered,
+            'num_keypoints_ref': len(kp1),
+            'num_keypoints_mov': len(kp2),
+            'num_matches': len(matches),
+            'num_inliers': np.sum(mask) if mask is not None else 0
+        }
 
 
-def estimate_homography(src_points: np.ndarray, dst_points: np.ndarray, 
-                        ransac: bool = True, 
-                        ransac_threshold: float = 5.0) -> Tuple[np.ndarray, np.ndarray]:
-    """
-    Estima la homografía entre dos conjuntos de puntos.
+class RegistrationEvaluator:
+    """Clase para evaluar la calidad del registro"""
     
-    Args:
-        src_points: Puntos fuente (N, 2)
-        dst_points: Puntos destino (N, 2)
-        ransac: Si usar RANSAC para filtrar outliers
-        ransac_threshold: Umbral para RANSAC
+    @staticmethod
+    def decompose_affine_matrix(M: np.ndarray) -> Dict:
+        """
+        Descompone una matriz afín en sus componentes
+        
+        Returns:
+            Dict con rotación, traslación y escala
+        """
+        if M.shape == (3, 3):
+            M = M[:2, :]
+        
+        # Extraer componentes
+        tx, ty = M[0, 2], M[1, 2]
+        
+        # Calcular escala y rotación
+        a, b = M[0, 0], M[0, 1]
+        c, d = M[1, 0], M[1, 1]
+        
+        sx = np.sqrt(a**2 + c**2)
+        sy = np.sqrt(b**2 + d**2)
+        
+        rotation = np.arctan2(c, a)
+        rotation_deg = np.degrees(rotation)
+        
+        return {
+            'translation_x': tx,
+            'translation_y': ty,
+            'scale_x': sx,
+            'scale_y': sy,
+            'rotation_rad': rotation,
+            'rotation_deg': rotation_deg
+        }
     
-    Returns:
-        homography: Matriz de homografía (3, 3)
-        mask: Máscara de inliers
-    """
-    if len(src_points) < 4:
-        raise ValueError("Se necesitan al menos 4 puntos para estimar una homografía")
+    @staticmethod
+    def calculate_rmse(M_true: np.ndarray, M_est: np.ndarray, 
+                      image_shape: Tuple) -> float:
+        """
+        Calcula RMSE entre transformaciones usando puntos de la imagen
+        
+        Args:
+            M_true: Matriz de transformación verdadera
+            M_est: Matriz de transformación estimada
+            image_shape: (height, width) de la imagen
+        """
+        h, w = image_shape[:2]
+        
+        # Puntos de prueba en las esquinas y centro
+        pts = np.float32([
+            [0, 0], [w, 0], [w, h], [0, h], [w/2, h/2]
+        ]).reshape(-1, 1, 2)
+        
+        # Transformar puntos
+        if M_true.shape == (3, 3):
+            pts_true = cv2.perspectiveTransform(pts, M_true)
+            pts_est = cv2.perspectiveTransform(pts, M_est)
+        else:
+            M_true_full = np.vstack([M_true, [0, 0, 1]])
+            M_est_full = np.vstack([M_est, [0, 0, 1]])
+            pts_true = cv2.perspectiveTransform(pts, M_true_full)
+            pts_est = cv2.perspectiveTransform(pts, M_est_full)
+        
+        # Calcular RMSE
+        diff = pts_true - pts_est
+        rmse = np.sqrt(np.mean(diff**2))
+        
+        return rmse
     
-    if ransac:
-        homography, mask = cv2.findHomography(
-            src_points,
-            dst_points,
-            method=cv2.RANSAC,
-            ransacReprojThreshold=ransac_threshold,
-            confidence=0.99,
-            maxIters=2000
+    @staticmethod
+    def calculate_angular_error(angle_true: float, angle_est: float) -> float:
+        """Calcula error angular en grados"""
+        error = np.abs(angle_true - angle_est)
+        # Normalizar al rango [-180, 180]
+        error = (error + 180) % 360 - 180
+        return np.abs(error)
+    
+    @staticmethod
+    def calculate_translation_error(M_true: np.ndarray, M_est: np.ndarray) -> float:
+        """Calcula error euclidiano en traslación"""
+        true_params = RegistrationEvaluator.decompose_affine_matrix(M_true)
+        est_params = RegistrationEvaluator.decompose_affine_matrix(M_est)
+        
+        dx = true_params['translation_x'] - est_params['translation_x']
+        dy = true_params['translation_y'] - est_params['translation_y']
+        
+        return np.sqrt(dx**2 + dy**2)
+    
+    @staticmethod
+    def calculate_scale_error(M_true: np.ndarray, M_est: np.ndarray) -> float:
+        """Calcula error relativo en escala"""
+        true_params = RegistrationEvaluator.decompose_affine_matrix(M_true)
+        est_params = RegistrationEvaluator.decompose_affine_matrix(M_est)
+        
+        scale_true = (true_params['scale_x'] + true_params['scale_y']) / 2
+        scale_est = (est_params['scale_x'] + est_params['scale_y']) / 2
+        
+        return np.abs(scale_true - scale_est) / scale_true * 100
+    
+    @staticmethod
+    def evaluate_registration(M_true: np.ndarray, M_est: np.ndarray, 
+                            image_shape: Tuple) -> Dict:
+        """
+        Evaluación completa del registro
+        
+        Returns:
+            Dict con todas las métricas de error
+        """
+        true_params = RegistrationEvaluator.decompose_affine_matrix(M_true)
+        est_params = RegistrationEvaluator.decompose_affine_matrix(M_est)
+        
+        rmse = RegistrationEvaluator.calculate_rmse(M_true, M_est, image_shape)
+        angular_error = RegistrationEvaluator.calculate_angular_error(
+            true_params['rotation_deg'], est_params['rotation_deg']
         )
-    else:
-        homography, mask = cv2.findHomography(
-            src_points,
-            dst_points,
-            method=0
-        )
-        if mask is None:
-            mask = np.ones((len(src_points),), dtype=np.uint8)
-    
-    return homography, mask
-
-
-def warp_image(image: np.ndarray, homography: np.ndarray, 
-              output_shape: Optional[Tuple[int, int]] = None) -> np.ndarray:
-    """
-    Aplica transformación de homografía a una imagen.
-    
-    Args:
-        image: Imagen a transformar
-        homography: Matriz de homografía
-        output_shape: Tamaño de la imagen de salida (height, width). 
-                     Si es None, se calcula automáticamente
-    
-    Returns:
-        warped_image: Imagen transformada
-    """
-    h, w = image.shape[:2]
-    
-    if output_shape is None:
-        # Calcular el tamaño necesario
-        corners = np.array([[0, 0], [w, 0], [w, h], [0, h]], dtype=np.float32)
-        corners_homogeneous = np.hstack([corners, np.ones((4, 1))])
+        translation_error = RegistrationEvaluator.calculate_translation_error(M_true, M_est)
+        scale_error = RegistrationEvaluator.calculate_scale_error(M_true, M_est)
         
-        transformed_corners = (homography @ corners_homogeneous.T).T
-        transformed_corners = transformed_corners[:, :2] / transformed_corners[:, 2:3]
-        
-        min_x = int(np.floor(transformed_corners[:, 0].min()))
-        max_x = int(np.ceil(transformed_corners[:, 0].max()))
-        min_y = int(np.floor(transformed_corners[:, 1].min()))
-        max_y = int(np.ceil(transformed_corners[:, 1].max()))
-        
-        output_w = max_x - min_x
-        output_h = max_y - min_y
-    else:
-        output_h, output_w = output_shape
-        min_x, min_y = 0, 0
-    
-    warped_image = cv2.warpPerspective(
-        image,
-        homography,
-        (output_w, output_h),
-        flags=cv2.INTER_LINEAR,
-        borderMode=cv2.BORDER_CONSTANT,
-        borderValue=(255, 255, 255) if len(image.shape) == 3 else 255
-    )
-    
-    return warped_image
-
+        return {
+            'rmse': rmse,
+            'angular_error_deg': angular_error,
+            'translation_error_px': translation_error,
+            'scale_error_percent': scale_error,
+            'true_rotation_deg': true_params['rotation_deg'],
+            'estimated_rotation_deg': est_params['rotation_deg'],
+            'true_translation_x': true_params['translation_x'],
+            'estimated_translation_x': est_params['translation_x'],
+            'true_translation_y': true_params['translation_y'],
+            'estimated_translation_y': est_params['translation_y'],
+            'true_scale': (true_params['scale_x'] + true_params['scale_y']) / 2,
+            'estimated_scale': (est_params['scale_x'] + est_params['scale_y']) / 2
+        }
