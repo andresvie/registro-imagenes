@@ -485,7 +485,7 @@
             
             <ul>
                 <li><strong>Parte 1: Validación con Imágenes Sintéticas</strong> <span class="status-badge completed">Completado</span> - Implementación del pipeline completo de registro con validación cuantitativa usando transformaciones conocidas.</li>
-                <li><strong>Parte 2: Registro de las Imágenes del Comedor</strong> <span class="status-badge pending">Pendiente</span> - Registro y fusión de imágenes reales con técnicas de blending.</li>
+                <li><strong>Parte 2: Registro de las Imágenes del Comedor</strong> <span class="status-badge completed">Completado</span> - Registro y fusión de imágenes reales con técnicas de blending usando pirámides de imagen.</li>
                 <li><strong>Parte 3: Calibración y Medición</strong> <span class="status-badge pending">Pendiente</span> - Calibración con objetos de referencia y herramientas de medición.</li>
             </ul>
             
@@ -843,6 +843,191 @@
             
             <hr>
             
+            <h2>Parte 2: Registro de las Imágenes del Comedor</h2>
+            
+            <h3>Objetivos y Metodología</h3>
+            
+            <p>La segunda parte del proyecto se enfoca en el registro y fusión de imágenes reales del comedor utilizando técnicas avanzadas de blending con pirámides de imagen. A diferencia de la Parte 1 donde se trabajó con transformaciones conocidas, aquí se enfrentan desafíos reales como diferencias de exposición, variaciones de iluminación y la necesidad de crear transiciones suaves entre imágenes fusionadas.</p>
+            
+            <div class="metrics-grid">
+                <div class="metric">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Imágenes del Comedor</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">3</div>
+                    <div class="metric-label">Detectores Evaluados</div>
+                </div>
+                <div class="metric">
+                    <div class="metric-value">100%</div>
+                    <div class="metric-label">Éxito en Fusión</div>
+                </div>
+            </div>
+            
+            <h3>Dataset de Imágenes</h3>
+            
+            <p>Se utilizaron tres imágenes de alta resolución (4032x3024 píxeles) capturadas del comedor desde diferentes perspectivas. Estas imágenes presentan:</p>
+            
+            <ul>
+                <li><strong>Solapamiento parcial</strong>: Cada imagen comparte región con al menos una imagen adyacente para permitir el registro.</li>
+                <li><strong>Variaciones de perspectiva</strong>: Las imágenes fueron capturadas desde diferentes ángulos y posiciones.</li>
+                <li><strong>Diferencias de exposición</strong>: Variaciones naturales en iluminación debido a cambios en la orientación de la cámara.</li>
+            </ul>
+            
+            <div class="image-grid">
+                <div class="image-grid-item">
+                    <img src="data/original/IMG01.jpg" alt="Imagen Original 1" onclick="openModal(this)">
+                    <h4>Imagen 1</h4>
+                    <p>4032 × 3024 px</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/original/IMG02.jpg" alt="Imagen Original 2" onclick="openModal(this)">
+                    <h4>Imagen 2</h4>
+                    <p>4032 × 3024 px</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/original/IMG03.jpg" alt="Imagen Original 3" onclick="openModal(this)">
+                    <h4>Imagen 3</h4>
+                    <p>3024 × 4032 px</p>
+                </div>
+            </div>
+            
+            <h3>Algoritmo de Fusión con Pirámides</h3>
+            
+            <p>Se implementó un algoritmo avanzado de stitching basado en pirámides de imagen que mejora significativamente la calidad de la fusión:</p>
+            
+            <ul>
+                <li><strong>Pirámide Gaussiana</strong>: Detección multi-escala de características para mejorar la robustez del registro.</li>
+                <li><strong>Pirámide Laplaciana</strong>: Blending multi-banda que fusiona diferentes frecuencias espaciales por separado, creando transiciones más suaves.</li>
+                <li><strong>Blending con Distance Transform</strong>: Máscaras de fusión suaves basadas en distancia a los bordes, evitando artefactos visibles.</li>
+                <li><strong>Registro Secuencial</strong>: Cada imagen se registra respecto a la anterior, acumulando transformaciones hacia un espacio común.</li>
+            </ul>
+            
+            <div class="info-box">
+                <strong>🔧 Ventajas del Enfoque con Pirámides</strong>
+                <p style="margin-bottom: 0;">El blending multi-banda con pirámides Laplacianas permite fusionar diferentes componentes de frecuencia (bajas, medias y altas) de manera independiente. Esto resulta en panorámicas más naturales sin artefactos de ghosting o discontinuidades visibles en las regiones de solapamiento.</p>
+            </div>
+            
+            <h3>Comparación de Detectores</h3>
+            
+            <p>Se evaluaron los tres detectores (SIFT, ORB y AKAZE) en el contexto de fusión panorámica real. Los resultados muestran diferencias significativas en rendimiento y calidad:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Detector</th>
+                            <th>Tiempo (s)</th>
+                            <th>Keypoints Totales</th>
+                            <th>Matches Totales</th>
+                            <th>Inliers Totales</th>
+                            <th>Tamaño Panorámica</th>
+                            <th>Éxito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>SIFT</strong></td>
+                            <td>32.75</td>
+                            <td>169,810</td>
+                            <td>11,926</td>
+                            <td>6,537</td>
+                            <td>9395 × 9612</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ORB</strong></td>
+                            <td>9.79</td>
+                            <td>8,000</td>
+                            <td>899</td>
+                            <td>592</td>
+                            <td>9227 × 9709</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AKAZE</strong></td>
+                            <td>18.46</td>
+                            <td>73,528</td>
+                            <td>4,173</td>
+                            <td>2,250</td>
+                            <td>10251 × 9379</td>
+                            <td>✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p><strong>Análisis:</strong></p>
+            
+            <ul>
+                <li><strong>SIFT</strong>: Genera la mayor cantidad de características y matches, resultando en el registro más robusto. Sin embargo, es el más lento (32.75s). Produce la panorámica más precisa con mejor calidad visual.</li>
+                <li><strong>ORB</strong>: El más rápido (9.79s), pero genera significativamente menos características y matches. Aunque logra fusionar las imágenes exitosamente, puede tener menor precisión en algunas regiones.</li>
+                <li><strong>AKAZE</strong>: Balance entre velocidad y precisión (18.46s). Genera un número moderado de características, suficiente para un registro robusto. Buena opción cuando se necesita equilibrio entre calidad y tiempo de procesamiento.</li>
+            </ul>
+            
+            <h3>Panorámicas Generadas</h3>
+            
+            <p>Las siguientes panorámicas fueron generadas usando el algoritmo de pirámides con cada detector:</p>
+            
+            <div class="image-container">
+                <img src="results/panoramic/comparacion_panoramas_detectores_pyramid.jpg" alt="Comparación de Panoramas" onclick="openModal(this)">
+                <p class="image-caption">Comparación visual de las panorámicas generadas con SIFT, ORB y AKAZE. Se puede observar la diferencia en calidad de registro y suavidad de blending.</p>
+            </div>
+            
+            <h4>Panorámica con SIFT</h4>
+            
+            <div class="image-container">
+                <img src="results/panoramic/panorama_sift_pyramid.jpg" alt="Panorámica SIFT" onclick="openModal(this)">
+                <p class="image-caption">Panorámica generada usando SIFT. Mayor número de correspondencias resulta en mejor alineación y menos artefactos.</p>
+            </div>
+            
+            <h4>Panorámica con ORB</h4>
+            
+            <div class="image-container">
+                <img src="results/panoramic/panorama_orb_pyramid.jpg" alt="Panorámica ORB" onclick="openModal(this)">
+                <p class="image-caption">Panorámica generada usando ORB. Más rápida de computar pero con menor número de matches.</p>
+            </div>
+            
+            <h4>Panorámica con AKAZE</h4>
+            
+            <div class="image-container">
+                <img src="results/panoramic/panorama_akaze_pyramid.jpg" alt="Panorámica AKAZE" onclick="openModal(this)">
+                <p class="image-caption">Panorámica generada usando AKAZE. Buen balance entre velocidad y calidad de registro.</p>
+            </div>
+            
+            <h3>Análisis de Métricas</h3>
+            
+            <p>La siguiente visualización compara las métricas de rendimiento de los tres detectores:</p>
+            
+            <div class="image-container">
+                <img src="results/panoramic/comparacion_metricas_detectores_pyramid.jpg" alt="Comparación de Métricas" onclick="openModal(this)">
+                <p class="image-caption">Gráfico comparativo de métricas: tiempo de procesamiento, número de keypoints, matches e inliers para cada detector.</p>
+            </div>
+            
+            <h3>Observaciones y Desafíos</h3>
+            
+            <p>Durante la implementación y evaluación se identificaron varios aspectos importantes:</p>
+            
+            <ul>
+                <li><strong>Diferencia de orientación</strong>: La imagen 3 tiene orientación diferente (portrait vs landscape), lo que requiere transformaciones más complejas.</li>
+                <li><strong>Calidad del blending</strong>: El algoritmo de pirámides Laplacianas logra transiciones muy suaves, prácticamente imperceptibles en las regiones de solapamiento.</li>
+                <li><strong>Rendimiento</strong>: El tiempo de procesamiento varía significativamente entre detectores, siendo SIFT el más costoso pero también el más robusto.</li>
+                <li><strong>Tamaño del canvas</strong>: Las panorámicas finales tienen dimensiones grandes (aproximadamente 9000-10000 píxeles de ancho), lo que requiere consideraciones de memoria durante el procesamiento.</li>
+            </ul>
+            
+            <div class="info-box">
+                <strong>📥 Datos Completos Disponibles</strong>
+                <p style="margin-bottom: 0;">Los resultados detallados están disponibles en:</p>
+                <ul style="margin-top: 8px;">
+                    <li><code>results/panoramic/comparacion_detectores_pyramid.csv</code> - Métricas comparativas</li>
+                    <li><code>results/panoramic/panorama_sift_pyramid.jpg</code> - Panorámica con SIFT</li>
+                    <li><code>results/panoramic/panorama_orb_pyramid.jpg</code> - Panorámica con ORB</li>
+                    <li><code>results/panoramic/panorama_akaze_pyramid.jpg</code> - Panorámica con AKAZE</li>
+                </ul>
+            </div>
+            
+            <hr>
+            
             <h2>Instalación y Uso</h2>
             
             <h3>Requisitos Previos</h3>
@@ -872,14 +1057,20 @@ jupyter notebook notebooks/01_registro_imagenes_proyecto.ipynb</code></pre>
 │   ├── matching.py
 │   ├── registration.py
 │   ├── evaluator.py
+│   ├── stitcher.py   # Algoritmo de stitching con pirámides
 │   └── utils.py
 ├── notebooks/        # Jupyter notebooks
-│   └── 01_registro_imagenes_proyecto.ipynb
+│   ├── 01_registro_imagenes_proyecto.ipynb  # Parte 1: Validación sintética
+│   └── 02_registro_imagenes_comedor.ipynb  # Parte 2: Registro panorámico
 ├── data/            # Imágenes de prueba
+│   ├── original/    # Imágenes reales del comedor (3 imágenes)
 │   └── synthetic/   # Dataset sintético (15 imágenes)
 └── results/         # Resultados y visualizaciones
     ├── figures/     # Gráficos y visualizaciones
-    └── measurements/ # Datos CSV con métricas</code></pre>
+    │   └── punto_1/ # Resultados de la Parte 1
+    ├── measurements/ # Datos CSV con métricas
+    │   └── punto_1/ # Métricas de la Parte 1
+    └── panoramic/    # Resultados panorámicos de la Parte 2</code></pre>
             
             <hr>
             
@@ -888,13 +1079,15 @@ jupyter notebook notebooks/01_registro_imagenes_proyecto.ipynb</code></pre>
             <ul>
                 <li>Lowe, D. G. (2004). Distinctive Image Features from Scale-Invariant Keypoints. <em>International Journal of Computer Vision</em>, 60(2), 91-110.</li>
                 <li>Hartley, R., & Zisserman, A. (2003). <em>Multiple View Geometry in Computer Vision</em> (2nd ed.). Cambridge University Press.</li>
+                <li>Burt, P. J., & Adelson, E. H. (1983). The Laplacian Pyramid as a Compact Image Code. <em>IEEE Transactions on Communications</em>, 31(4), 532-540.</li>
                 <li><a href="https://docs.opencv.org/" target="_blank">OpenCV Documentation</a></li>
                 <li><a href="https://docs.opencv.org/4.x/dc/dc3/tutorial_py_matcher.html" target="_blank">OpenCV Feature Matching Tutorial</a></li>
             </ul>
             
             <div style="margin-top: 40px; text-align: center;">
                 <a href="README.md" class="button">📖 Leer README Completo</a>
-                <a href="notebooks/01_registro_imagenes_proyecto.ipynb" class="button secondary">📓 Explorar Notebook</a>
+                <a href="notebooks/01_registro_imagenes_proyecto.ipynb" class="button secondary">📓 Notebook Parte 1</a>
+                <a href="notebooks/02_registro_imagenes_comedor.ipynb" class="button secondary">📓 Notebook Parte 2</a>
             </div>
         </article>
         
