@@ -173,6 +173,7 @@
         
         .link-button {
             display: inline-block;
+<<<<<<< Updated upstream
             padding: 12px 25px;
             background: #667eea;
             color: white;
@@ -230,13 +231,198 @@
             margin-top: 5px;
         }
         
+=======
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-left: 8px;
+        }
+        
+        .status-badge.completed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        /* Code Blocks */
+        pre {
+            background: var(--bg-code);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            overflow-x: auto;
+            margin: 24px 0;
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.875rem;
+            line-height: 1.6;
+        }
+        
+        code {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            font-size: 0.875rem;
+            background: var(--bg-code);
+            padding: 3px 6px;
+            border-radius: 4px;
+            color: var(--code-color);
+        }
+        
+        pre code {
+            background: transparent;
+            padding: 0;
+            color: var(--text-primary);
+        }
+        
+        /* Images */
+        .image-container {
+            margin: 32px 0;
+            text-align: center;
+        }
+        
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .image-container img:hover {
+            transform: scale(1.02);
+        }
+        
+        .image-caption {
+            margin-top: 12px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        /* Image Grid */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 32px 0;
+        }
+        
+        .image-grid-item {
+            text-align: center;
+        }
+        
+        .image-grid-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+        }
+        
+        .image-grid-item img:hover {
+            transform: scale(1.05);
+        }
+        
+        .image-grid-item h4 {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .image-grid-item p {
+            margin-top: 4px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+        
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 32px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        
+        thead {
+            background: var(--bg-secondary);
+        }
+        
+        th {
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        tbody tr:hover {
+            background: var(--bg-secondary);
+        }
+        
+        tbody tr:last-child td {
+            border-bottom: none;
+        }
+        
+        /* Info Boxes */
+        .info-box {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 24px 0;
+            border-left: 4px solid var(--primary-color);
+            background: var(--bg-secondary);
+        }
+        
+        .info-box h4 {
+            margin-bottom: 8px;
+            color: var(--primary-color);
+        }
+        
+        .info-box p {
+            margin: 0;
+            color: var(--text-secondary);
+        }
+        
+        /* Links */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }
+        
+        a:hover {
+            border-bottom-color: var(--primary-color);
+        }
+        
+        /* Responsive */
+>>>>>>> Stashed changes
         @media (max-width: 768px) {
             h1 {
                 font-size: 1.8em;
             }
             
+<<<<<<< Updated upstream
             .main-content {
                 grid-template-columns: 1fr;
+=======
+            .article-content h2 {
+                font-size: 1.5rem;
+            }
+            
+            .article-content h3 {
+                font-size: 1.25rem;
+>>>>>>> Stashed changes
             }
         }
     </style>
@@ -280,6 +466,7 @@
                 </div>
             </div>
             
+<<<<<<< Updated upstream
             <div class="card">
                 <h2>Parte 3: Calibración y Medición <span class="status pending">Pendiente</span></h2>
                 <div class="card-content">
@@ -315,6 +502,20 @@
                     <div class="metric-label">Métrica Principal</div>
                 </div>
             </div>
+=======
+            <ul>
+                <li><strong>Parte 1: Validación con Imágenes Sintéticas</strong> <span class="status-badge completed">Completado</span> - Implementación del pipeline completo de registro con validación cuantitativa usando transformaciones conocidas.</li>
+                <li><strong>Parte 2: Registro de las Imágenes del Comedor</strong> <span class="status-badge completed">Completado</span> - Registro y fusión de imágenes reales con técnicas de blending usando pirámides de imagen.</li>
+                <li><strong>Parte 3: Calibración y Medición</strong> - Calibración con objetos de referencia y herramientas de medición.</li>
+            </ul>
+            
+            <h2>Parte 1: Validación Sintética</h2>
+            
+            <h3>Objetivos y Metodología</h3>
+            
+            <p>La primera parte del proyecto se enfoca en la validación cuantitativa del algoritmo de registro mediante imágenes sintéticas con transformaciones conocidas (ground truth). Esto permite evaluar la precisión del método comparando las transformaciones estimadas con las verdaderas.</p>
+            
+>>>>>>> Stashed changes
             
             <h3>Métodos Implementados</h3>
             <ul style="margin-left: 20px; margin-top: 15px;">
@@ -330,10 +531,485 @@
                 <li><strong>Error de Escala</strong>: Diferencia en factor de escala</li>
                 <li><strong>Número de Inliers</strong>: Matches válidos después de RANSAC</li>
             </ul>
+<<<<<<< Updated upstream
         </div>
         
         <div class="section">
             <h2>🚀 Instalación y Uso</h2>
+=======
+            
+            <h2>Visualizaciones de Resultados</h2>
+            
+            <h3>Análisis Comparativo</h3>
+            
+            <div class="image-container">
+                <img src="results/figures/punto_1/comparacion_detectores.png" alt="Comparación de Detectores">
+                <p class="image-caption">Comparación del rendimiento de SIFT, ORB y AKAZE en diferentes tipos de transformaciones.</p>
+            </div>
+            
+            <div class="image-container">
+                <img src="results/figures/punto_1/estudio_ratio_test.png" alt="Estudio de Ratio Test">
+                <p class="image-caption">Análisis del efecto del parámetro <code>ratio_threshold</code> en la calidad del registro y el número de matches obtenidos.</p>
+            </div>
+            
+            <div class="image-container">
+                <img src="results/figures/punto_1/analisis_errores.png" alt="Análisis de Errores">
+                <p class="image-caption">Distribución de errores por tipo de transformación aplicada a las imágenes sintéticas.</p>
+            </div>
+            
+            <h3>Ejemplos de Registro</h3>
+            
+            <div class="image-container">
+                <img src="results/figures/punto_1/matches_visualizacion.png" alt="Visualización de Matches">
+                <p class="image-caption">Visualización de las correspondencias de características detectadas entre dos imágenes.</p>
+            </div>
+            
+            <div class="image-container">
+                <img src="results/figures/punto_1/registro_individual.png" alt="Registro Individual">
+                <p class="image-caption">Ejemplo de registro exitoso entre un par de imágenes con transformación aplicada.</p>
+            </div>
+            
+            <h2>Dataset Sintético</h2>
+            
+            <p>Se generaron 15 imágenes sintéticas aplicando transformaciones conocidas que cubren un rango de rotaciones desde -30° hasta +30° con escalas y traslaciones variables. Estas imágenes permiten evaluar el comportamiento del algoritmo bajo diferentes condiciones.</p>
+            
+            <div class="image-grid">
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_0.png" alt="Imagen Sintética 0">
+                    <h4>Imagen 0</h4>
+                    <p>Base de referencia</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_1.png" alt="Imagen Sintética 1">
+                    <h4>Imagen 1</h4>
+                    <p>-30°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_2.png" alt="Imagen Sintética 2">
+                    <h4>Imagen 2</h4>
+                    <p>-25.7°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_3.png" alt="Imagen Sintética 3">
+                    <h4>Imagen 3</h4>
+                    <p>-21.4°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_4.png" alt="Imagen Sintética 4">
+                    <h4>Imagen 4</h4>
+                    <p>-17.1°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_5.png" alt="Imagen Sintética 5">
+                    <h4>Imagen 5</h4>
+                    <p>-12.9°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_6.png" alt="Imagen Sintética 6">
+                    <h4>Imagen 6</h4>
+                    <p>-8.6°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_7.png" alt="Imagen Sintética 7">
+                    <h4>Imagen 7</h4>
+                    <p>0° (referencia)</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_8.png" alt="Imagen Sintética 8">
+                    <h4>Imagen 8</h4>
+                    <p>+4.3°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_9.png" alt="Imagen Sintética 9">
+                    <h4>Imagen 9</h4>
+                    <p>+8.6°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_10.png" alt="Imagen Sintética 10">
+                    <h4>Imagen 10</h4>
+                    <p>+12.9°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_11.png" alt="Imagen Sintética 11">
+                    <h4>Imagen 11</h4>
+                    <p>+17.1°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_12.png" alt="Imagen Sintética 12">
+                    <h4>Imagen 12</h4>
+                    <p>+21.4°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_13.png" alt="Imagen Sintética 13">
+                    <h4>Imagen 13</h4>
+                    <p>+25.7°</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/synthetic/image_14.png" alt="Imagen Sintética 14">
+                    <h4>Imagen 14</h4>
+                    <p>+30°</p>
+                </div>
+            </div>
+            
+            <h2>Resultados Cuantitativos</h2>
+            
+            <h3>Comparación de Detectores</h3>
+            
+            <p>La siguiente tabla muestra los resultados promedio obtenidos con cada detector en el dataset completo:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Detector</th>
+                            <th>RMSE Promedio</th>
+                            <th>Error Angular (°)</th>
+                            <th>Error Traslación (px)</th>
+                            <th>Error Escala (%)</th>
+                            <th>Matches Promedio</th>
+                            <th>Inliers Promedio</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>SIFT</strong></td>
+                            <td>0.361</td>
+                            <td>0.021</td>
+                            <td>0.514</td>
+                            <td>0.158</td>
+                            <td>75</td>
+                            <td>57</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ORB</strong></td>
+                            <td>3.366</td>
+                            <td>0.489</td>
+                            <td>3.556</td>
+                            <td>1.517</td>
+                            <td>167</td>
+                            <td>154</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AKAZE</strong></td>
+                            <td>0.474</td>
+                            <td>0.009</td>
+                            <td>0.764</td>
+                            <td>0.105</td>
+                            <td>127</td>
+                            <td>105</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p><strong>Análisis:</strong> SIFT presenta el menor RMSE y error angular, aunque AKAZE tiene un error angular ligeramente menor. ORB genera más matches pero con mayor error, lo que sugiere mayor sensibilidad a outliers. AKAZE ofrece el mejor balance entre precisión y número de correspondencias.</p>
+            
+            <h3>Estudio de Parámetros: Ratio Test</h3>
+            
+            <p>El parámetro <code>ratio_threshold</code> en el ratio test de Lowe afecta significativamente la calidad del registro. Valores muy bajos filtran demasiados matches válidos, mientras que valores muy altos permiten más outliers. Se evaluó el rango de 0.5 a 0.95:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Ratio Threshold</th>
+                            <th>RMSE</th>
+                            <th>Error Angular (°)</th>
+                            <th>Error Traslación (px)</th>
+                            <th>Error Escala (%)</th>
+                            <th>Matches</th>
+                            <th>Inliers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0.50</td>
+                            <td>0.503</td>
+                            <td>0.010</td>
+                            <td>0.564</td>
+                            <td>0.234</td>
+                            <td>49</td>
+                            <td>44</td>
+                        </tr>
+                        <tr>
+                            <td>0.55</td>
+                            <td>0.405</td>
+                            <td>0.024</td>
+                            <td>0.408</td>
+                            <td>0.159</td>
+                            <td>51</td>
+                            <td>45</td>
+                        </tr>
+                        <tr>
+                            <td>0.60</td>
+                            <td>0.310</td>
+                            <td>0.022</td>
+                            <td>0.373</td>
+                            <td>0.097</td>
+                            <td>55</td>
+                            <td>48</td>
+                        </tr>
+                        <tr>
+                            <td>0.65</td>
+                            <td>0.378</td>
+                            <td>0.005</td>
+                            <td>0.523</td>
+                            <td>0.167</td>
+                            <td>60</td>
+                            <td>52</td>
+                        </tr>
+                        <tr style="background: #eff6ff;">
+                            <td><strong>0.70</strong></td>
+                            <td><strong>0.359</strong></td>
+                            <td><strong>0.008</strong></td>
+                            <td><strong>0.531</strong></td>
+                            <td><strong>0.161</strong></td>
+                            <td>68</td>
+                            <td>55</td>
+                        </tr>
+                        <tr style="background: #eff6ff;">
+                            <td><strong>0.75</strong></td>
+                            <td><strong>0.361</strong></td>
+                            <td><strong>0.021</strong></td>
+                            <td><strong>0.514</strong></td>
+                            <td><strong>0.158</strong></td>
+                            <td>75</td>
+                            <td>57</td>
+                        </tr>
+                        <tr>
+                            <td>0.80</td>
+                            <td>0.389</td>
+                            <td>0.042</td>
+                            <td>0.525</td>
+                            <td>0.163</td>
+                            <td>87</td>
+                            <td>60</td>
+                        </tr>
+                        <tr>
+                            <td>0.85</td>
+                            <td>0.401</td>
+                            <td>0.048</td>
+                            <td>0.525</td>
+                            <td>0.165</td>
+                            <td>93</td>
+                            <td>63</td>
+                        </tr>
+                        <tr>
+                            <td>0.90</td>
+                            <td>0.392</td>
+                            <td>0.047</td>
+                            <td>0.510</td>
+                            <td>0.170</td>
+                            <td>114</td>
+                            <td>67</td>
+                        </tr>
+                        <tr>
+                            <td>0.95</td>
+                            <td>0.408</td>
+                            <td>0.053</td>
+                            <td>0.512</td>
+                            <td>0.180</td>
+                            <td>158</td>
+                            <td>73</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p><strong>Conclusión:</strong> El rango óptimo se encuentra entre 0.70 y 0.75, donde se obtiene el mejor balance entre precisión (RMSE bajo) y número suficiente de matches para estimar la homografía de manera robusta.</p>
+            
+            <h3>Resultados del Dataset Completo</h3>
+            
+            <p>Algunos hallazgos destacados del análisis completo:</p>
+            
+            <ul>
+                <li><strong>Mejor registro:</strong> Imagen 7 (sin transformación) - RMSE ≈ 0, Error angular ≈ 0°. Como era esperado, el registro es perfecto cuando no hay transformación.</li>
+                <li><strong>Registros con menor error:</strong> Transformaciones pequeñas (-4.3° a +4.3°) presentan RMSE < 0.5, demostrando alta precisión para rotaciones menores.</li>
+                <li><strong>Registros más desafiantes:</strong> Transformaciones grandes (±30°) presentan RMSE > 0.8, indicando que el error aumenta con la magnitud de la transformación.</li>
+                <li><strong>Tendencia general:</strong> Existe una correlación positiva entre la magnitud de la transformación y el error de registro, comportamiento esperado en sistemas de registro basados en características.</li>
+            </ul>
+            
+            <div class="info-box">
+                <h4>📥 Datos Completos Disponibles</h4>
+                <p>Las mediciones detalladas están disponibles en formato CSV:</p>
+                <ul style="margin-top: 8px;">
+                    <li><code>results/measurements/punto_1/comparacion_detectores.csv</code></li>
+                    <li><code>results/measurements/punto_1/estudio_ratio_test.csv</code></li>
+                    <li><code>results/measurements/punto_1/resultados_dataset.csv</code></li>
+                </ul>
+            </div>
+            
+            <h2>Parte 2: Registro de las Imágenes del Comedor</h2>
+            
+            <h3>Objetivos y Metodología</h3>
+            
+            <p>La segunda parte del proyecto se enfoca en el registro y fusión de imágenes reales del comedor utilizando técnicas avanzadas de blending con pirámides de imagen. A diferencia de la Parte 1 donde se trabajó con transformaciones conocidas, aquí se enfrentan desafíos reales como diferencias de exposición, variaciones de iluminación y la necesidad de crear transiciones suaves entre imágenes fusionadas.</p>
+            
+            
+            <h3>Dataset de Imágenes</h3>
+            
+            <p>Se utilizaron tres imágenes de alta resolución (4032x3024 píxeles) capturadas del comedor desde diferentes perspectivas. Estas imágenes presentan:</p>
+            
+            <ul>
+                <li><strong>Solapamiento parcial</strong>: Cada imagen comparte región con al menos una imagen adyacente para permitir el registro.</li>
+                <li><strong>Variaciones de perspectiva</strong>: Las imágenes fueron capturadas desde diferentes ángulos y posiciones.</li>
+                <li><strong>Diferencias de exposición</strong>: Variaciones naturales en iluminación debido a cambios en la orientación de la cámara.</li>
+            </ul>
+            
+            <div class="image-grid">
+                <div class="image-grid-item">
+                    <img src="data/original/IMG01.jpg" alt="Imagen Original 1">
+                    <h4>Imagen 1</h4>
+                    <p>4032 × 3024 px</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/original/IMG02.jpg" alt="Imagen Original 2">
+                    <h4>Imagen 2</h4>
+                    <p>4032 × 3024 px</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="data/original/IMG03.jpg" alt="Imagen Original 3">
+                    <h4>Imagen 3</h4>
+                    <p>3024 × 4032 px</p>
+                </div>
+            </div>
+            
+            <h3>Algoritmo de Fusión con Pirámides</h3>
+            
+            <p>Se implementó un algoritmo avanzado de stitching basado en pirámides de imagen que mejora significativamente la calidad de la fusión:</p>
+            
+            <ul>
+                <li><strong>Pirámide Gaussiana</strong>: Detección multi-escala de características para mejorar la robustez del registro.</li>
+                <li><strong>Pirámide Laplaciana</strong>: Blending multi-banda que fusiona diferentes frecuencias espaciales por separado, creando transiciones más suaves.</li>
+                <li><strong>Blending con Distance Transform</strong>: Máscaras de fusión suaves basadas en distancia a los bordes, evitando artefactos visibles.</li>
+                <li><strong>Registro Secuencial</strong>: Cada imagen se registra respecto a la anterior, acumulando transformaciones hacia un espacio común.</li>
+            </ul>
+            
+            <div class="info-box">
+                <h4>🔧 Ventajas del Enfoque con Pirámides</h4>
+                <p>El blending multi-banda con pirámides Laplacianas permite fusionar diferentes componentes de frecuencia (bajas, medias y altas) de manera independiente. Esto resulta en panorámicas más naturales sin artefactos de ghosting o discontinuidades visibles en las regiones de solapamiento.</p>
+            </div>
+            
+            <h3>Comparación de Detectores</h3>
+            
+            <p>Se evaluaron los tres detectores (SIFT, ORB y AKAZE) en el contexto de fusión panorámica real. Los resultados muestran diferencias significativas en rendimiento y calidad:</p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Detector</th>
+                            <th>Tiempo (s)</th>
+                            <th>Keypoints Totales</th>
+                            <th>Matches Totales</th>
+                            <th>Inliers Totales</th>
+                            <th>Tamaño Panorámica</th>
+                            <th>Éxito</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>SIFT</strong></td>
+                            <td>32.75</td>
+                            <td>169,810</td>
+                            <td>11,926</td>
+                            <td>6,537</td>
+                            <td>9395 × 9612</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ORB</strong></td>
+                            <td>9.79</td>
+                            <td>8,000</td>
+                            <td>899</td>
+                            <td>592</td>
+                            <td>9227 × 9709</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td><strong>AKAZE</strong></td>
+                            <td>18.46</td>
+                            <td>73,528</td>
+                            <td>4,173</td>
+                            <td>2,250</td>
+                            <td>10251 × 9379</td>
+                            <td>✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p><strong>Análisis:</strong></p>
+            
+            <ul>
+                <li><strong>SIFT</strong>: Genera la mayor cantidad de características y matches, resultando en el registro más robusto. Sin embargo, es el más lento (32.75s). Produce la panorámica más precisa con mejor calidad visual.</li>
+                <li><strong>ORB</strong>: El más rápido (9.79s), pero genera significativamente menos características y matches. Aunque logra fusionar las imágenes exitosamente, puede tener menor precisión en algunas regiones.</li>
+                <li><strong>AKAZE</strong>: Balance entre velocidad y precisión (18.46s). Genera un número moderado de características, suficiente para un registro robusto. Buena opción cuando se necesita equilibrio entre calidad y tiempo de procesamiento.</li>
+            </ul>
+            
+            <h3>Panorámicas Generadas</h3>
+            
+            <p>Las siguientes panorámicas fueron generadas usando el algoritmo de pirámides con cada detector:</p>
+            
+            <div class="image-container">
+                <img src="results/panoramic/comparacion_panoramas_detectores_pyramid.jpg" alt="Comparación de Panoramas">
+                <p class="image-caption">Comparación visual de las panorámicas generadas con SIFT, ORB y AKAZE. Se puede observar la diferencia en calidad de registro y suavidad de blending.</p>
+            </div>
+            
+            <h4>Panorámica con SIFT</h4>
+            
+            <div class="image-container">
+                <img src="results/panoramic/panorama_sift_pyramid.jpg" alt="Panorámica SIFT">
+                <p class="image-caption">Panorámica generada usando SIFT. Mayor número de correspondencias resulta en mejor alineación y menos artefactos.</p>
+            </div>
+            
+            <h4>Panorámica con ORB</h4>
+            
+            <div class="image-container">
+                <img src="results/panoramic/panorama_orb_pyramid.jpg" alt="Panorámica ORB">
+                <p class="image-caption">Panorámica generada usando ORB. Más rápida de computar pero con menor número de matches.</p>
+            </div>
+            
+            <h4>Panorámica con AKAZE</h4>
+            
+            <div class="image-container">
+                <img src="results/panoramic/panorama_akaze_pyramid.jpg" alt="Panorámica AKAZE">
+                <p class="image-caption">Panorámica generada usando AKAZE. Buen balance entre velocidad y calidad de registro.</p>
+            </div>
+            
+            <h3>Análisis de Métricas</h3>
+            
+            <p>La siguiente visualización compara las métricas de rendimiento de los tres detectores:</p>
+            
+            <div class="image-container">
+                <img src="results/panoramic/comparacion_metricas_detectores_pyramid.jpg" alt="Comparación de Métricas">
+                <p class="image-caption">Gráfico comparativo de métricas: tiempo de procesamiento, número de keypoints, matches e inliers para cada detector.</p>
+            </div>
+            
+            <h3>Observaciones y Desafíos</h3>
+            
+            <p>Durante la implementación y evaluación se identificaron varios aspectos importantes:</p>
+            
+            <ul>
+                <li><strong>Diferencia de orientación</strong>: La imagen 3 tiene orientación diferente (portrait vs landscape), lo que requiere transformaciones más complejas.</li>
+                <li><strong>Calidad del blending</strong>: El algoritmo de pirámides Laplacianas logra transiciones muy suaves, prácticamente imperceptibles en las regiones de solapamiento.</li>
+                <li><strong>Rendimiento</strong>: El tiempo de procesamiento varía significativamente entre detectores, siendo SIFT el más costoso pero también el más robusto.</li>
+                <li><strong>Tamaño del canvas</strong>: Las panorámicas finales tienen dimensiones grandes (aproximadamente 9000-10000 píxeles de ancho), lo que requiere consideraciones de memoria durante el procesamiento.</li>
+            </ul>
+            
+            <div class="info-box">
+                <h4>📥 Datos Completos Disponibles</h4>
+                <p>Los resultados detallados están disponibles en:</p>
+                <ul style="margin-top: 8px;">
+                    <li><code>results/panoramic/comparacion_detectores_pyramid.csv</code> - Métricas comparativas</li>
+                    <li><code>results/panoramic/panorama_sift_pyramid.jpg</code> - Panorámica con SIFT</li>
+                    <li><code>results/panoramic/panorama_orb_pyramid.jpg</code> - Panorámica con ORB</li>
+                    <li><code>results/panoramic/panorama_akaze_pyramid.jpg</code> - Panorámica con AKAZE</li>
+                </ul>
+            </div>
+            
+            <h2>Instalación y Uso</h2>
+>>>>>>> Stashed changes
             
             <h3>Requisitos Previos</h3>
             <ul style="margin-left: 20px; margin-top: 15px;">
@@ -369,13 +1045,23 @@ proyecto-registro-imagenes/<br>
         <div class="section">
             <h2>📚 Recursos y Referencias</h2>
             
+<<<<<<< Updated upstream
             <h3>Documentación Técnica</h3>
             <ul style="margin-left: 20px; margin-top: 15px;">
+=======
+            <h2>Referencias</h2>
+            
+            <ul>
+                <li>Lowe, D. G. (2004). Distinctive Image Features from Scale-Invariant Keypoints. <em>International Journal of Computer Vision</em>, 60(2), 91-110.</li>
+                <li>Hartley, R., & Zisserman, A. (2003). <em>Multiple View Geometry in Computer Vision</em> (2nd ed.). Cambridge University Press.</li>
+                <li>Burt, P. J., & Adelson, E. H. (1983). The Laplacian Pyramid as a Compact Image Code. <em>IEEE Transactions on Communications</em>, 31(4), 532-540.</li>
+>>>>>>> Stashed changes
                 <li><a href="https://docs.opencv.org/" target="_blank">OpenCV Documentation</a></li>
                 <li><a href="https://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf" target="_blank">Paper original de SIFT (Lowe, 2004)</a></li>
                 <li><a href="http://www.robots.ox.ac.uk/~vgg/hzbook/" target="_blank">Multiple View Geometry (Hartley & Zisserman)</a></li>
             </ul>
             
+<<<<<<< Updated upstream
             <h3>Tutoriales</h3>
             <ul style="margin-left: 20px; margin-top: 15px;">
                 <li><a href="https://docs.opencv.org/4.x/dc/dc3/tutorial_py_matcher.html" target="_blank">OpenCV Feature Matching Tutorial</a></li>
@@ -393,6 +1079,9 @@ proyecto-registro-imagenes/<br>
             <p>© 2025 Universidad Nacional de Colombia - Departamento de Ciencias de la Computación y de la Decisión</p>
             <p style="margin-top: 10px; font-size: 0.9em;">Trabajo académico - Visión por Computador 3009228</p>
         </footer>
+=======
+        </article>
+>>>>>>> Stashed changes
     </div>
 </body>
 </html>

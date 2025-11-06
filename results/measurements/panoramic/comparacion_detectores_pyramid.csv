@@ -1,0 +1,4 @@
+detector,success,time_seconds,panorama_shape,total_keypoints,total_matches,total_inliers,time_formatted
+SIFT,True,27.647908926010132,9395x9612,169810,11926,6537,27.65s
+ORB,True,9.579804182052612,9227x9709,8000,899,592,9.58s
+AKAZE,True,14.76001501083374,10251x9379,73528,4173,2250,14.76s
