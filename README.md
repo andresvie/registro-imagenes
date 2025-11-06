@@ -328,9 +328,9 @@ Este trabajo fue desarrollado en equipo por:
 - **Parte 1: Validación con Imágenes Sintéticas**
   - Carlos Andrés Viera Mosquera (cviera@unal.edu.co)
 
-- **Parte 2: Registro de las Imágenes del Comedor**
-  - Carlos Andrés Viera Mosquera (cviera@unal.edu.co)
+- **Parte 2: Registro de las Imágenes del Comedor**  
   - Yenifer Tatiana Guavita Ospino (yguavita@unal.edu.co)
+  - Carlos Andrés Viera Mosquera (cviera@unal.edu.co)
 
 - **Parte 3: Calibración y Medición**
   - Lina María Montoya Zuluaga (limontoyaz@unal.edu.co)
