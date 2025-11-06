@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trabajo 2: Registro de Imágenes | Visión por Computador</title>
+    <title>Reporte Técnico: Registro y Fusión de Imágenes | Visión por Computador</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         * {
@@ -36,7 +36,7 @@
         }
         
         .container {
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px;
             background: var(--bg-primary);
@@ -50,7 +50,7 @@
         }
         
         .blog-title {
-            font-size: 2.75rem;
+            font-size: 2.5rem;
             font-weight: 700;
             line-height: 1.2;
             color: var(--text-primary);
@@ -59,7 +59,7 @@
         }
         
         .blog-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.1rem;
             color: var(--text-secondary);
             font-weight: 400;
             margin-bottom: 12px;
@@ -92,6 +92,8 @@
             margin-top: 48px;
             margin-bottom: 24px;
             line-height: 1.3;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 8px;
         }
         
         .article-content h3 {
@@ -114,6 +116,7 @@
         .article-content p {
             margin-bottom: 20px;
             color: var(--text-primary);
+            text-align: justify;
         }
         
         .article-content ul,
@@ -130,31 +133,6 @@
         .article-content strong {
             font-weight: 600;
             color: var(--text-primary);
-        }
-        
-        /* Status Badges */
-        .status-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-left: 8px;
-        }
-        
-        .status-badge.completed {
-            background: #d1fae5;
-            color: #065f46;
-        }
-        
-        .status-badge.pending {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-        
-        .status-badge.in-progress {
-            background: #fef3c7;
-            color: #92400e;
         }
         
         /* Code Blocks */
@@ -236,19 +214,6 @@
             transform: scale(1.05);
         }
         
-        .image-grid-item h4 {
-            margin-top: 12px;
-            font-size: 0.9rem;
-            color: var(--text-primary);
-            font-weight: 600;
-        }
-        
-        .image-grid-item p {
-            margin-top: 4px;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-        
         /* Tables */
         .table-container {
             overflow-x: auto;
@@ -298,146 +263,43 @@
             background: var(--bg-secondary);
         }
         
-        .info-box strong {
-            display: block;
+        .info-box h4 {
             margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-        
-        /* Links */
-        a {
             color: var(--primary-color);
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: border-color 0.2s ease;
         }
         
-        a:hover {
-            border-bottom-color: var(--primary-color);
-        }
-        
-        /* Buttons */
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 6px;
-            font-weight: 500;
-            transition: background 0.2s ease;
-            margin: 8px 8px 8px 0;
-        }
-        
-        .button:hover {
-            background: var(--secondary-color);
-            border-bottom: none;
-        }
-        
-        .button.secondary {
-            background: var(--bg-secondary);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-        }
-        
-        .button.secondary:hover {
-            background: var(--border-color);
-        }
-        
-        /* Metrics */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 16px;
-            margin: 24px 0;
-        }
-        
-        .metric {
-            padding: 20px;
-            background: var(--bg-secondary);
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-        
-        .metric-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            margin-bottom: 4px;
-        }
-        
-        .metric-label {
-            font-size: 0.875rem;
+        .info-box p {
+            margin: 0;
             color: var(--text-secondary);
         }
         
-        /* Divider */
-        hr {
-            border: none;
-            border-top: 1px solid var(--border-color);
-            margin: 48px 0;
+        /* Flow Diagram */
+        .flow-diagram {
+            background: var(--bg-secondary);
+            padding: 24px;
+            border-radius: 8px;
+            margin: 32px 0;
+            border: 1px solid var(--border-color);
         }
         
-        /* Footer */
-        footer {
-            padding: 40px 0;
-            border-top: 1px solid var(--border-color);
-            margin-top: 60px;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.875rem;
+        .flow-step {
+            background: var(--bg-primary);
+            padding: 16px;
+            margin: 12px 0;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 4px;
         }
         
-        /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            overflow: auto;
-        }
-        
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 90%;
-            max-width: 1200px;
-            margin-top: 50px;
-            animation: zoom 0.3s;
-        }
-        
-        @keyframes zoom {
-            from {transform: scale(0)}
-            to {transform: scale(1)}
-        }
-        
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        
-        .close:hover {
-            color: #bbb;
+        .flow-step h5 {
+            margin-bottom: 8px;
+            color: var(--primary-color);
+            font-weight: 600;
         }
         
         /* Responsive */
         @media (max-width: 768px) {
             .blog-title {
                 font-size: 2rem;
-            }
-            
-            .blog-subtitle {
-                font-size: 1.1rem;
             }
             
             .article-content h2 {
@@ -447,252 +309,475 @@
             .article-content h3 {
                 font-size: 1.25rem;
             }
-            
-            .image-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .metrics-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            .table-container {
-                font-size: 0.8rem;
-            }
-            
-            th, td {
-                padding: 8px 12px;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1 class="blog-title">Trabajo 2: Registro de Imágenes</h1>
-            <p class="blog-subtitle">Fusión de Perspectivas - Registro de Imágenes y Medición del Mundo Real</p>
+            <h1 class="blog-title">Registro y Fusión de Imágenes mediante Detección de Características</h1>
+            <p class="blog-subtitle">Validación con Imágenes Sintéticas y Aplicación a Panorámicas Reales</p>
             <div class="blog-meta">
-                <span>📚 Visión por Computador 3009228</span>
-                <span>🏛️ Universidad Nacional de Colombia</span>
-                <span>📅 Semestre 2025-02 - Facultad de Minas</span>
+                <span>📅 Semestre 2025-02</span>
+                <span>🏷️ Visión por Computador 3009228</span>
+                <span>🏛️ Universidad Nacional de Colombia - Facultad de Minas</span>
             </div>
         </header>
-        
+
         <article class="article-content">
-            <h2>Resumen del Proyecto</h2>
+            <!-- Introducción -->
+            <h2>1. Introducción</h2>
             
-            <p>Este proyecto implementa técnicas de registro de imágenes (image registration) para fusionar múltiples perspectivas y realizar mediciones del mundo real usando objetos de referencia. El trabajo se divide en tres partes principales:</p>
+            <h3>1.1 Contexto del Problema</h3>
+            <p>
+                El registro de imágenes es una técnica fundamental en visión por computador que consiste en alinear 
+                dos o más imágenes de la misma escena capturadas desde diferentes puntos de vista, en diferentes momentos, 
+                o con diferentes sensores. Esta técnica tiene aplicaciones extensas en áreas como la creación de panorámicas, 
+                seguimiento de objetos, fusión de imágenes médicas, reconstrucción 3D, y análisis de cambios temporales.
+            </p>
             
+            <p>
+                En el contexto de este proyecto, nos enfocamos en dos objetivos principales: (1) validar la precisión 
+                de un pipeline de registro mediante imágenes sintéticas con transformaciones conocidas (ground truth), 
+                y (2) aplicar este pipeline validado para crear una panorámica de alta calidad a partir de tres imágenes 
+                reales de un comedor, utilizando técnicas avanzadas de blending para lograr transiciones suaves.
+            </p>
+
+            <h3>1.2 Motivación</h3>
+            <p>
+                Antes de aplicar un algoritmo de registro a imágenes reales, es crucial validar su funcionamiento con 
+                datos sintéticos donde conocemos las transformaciones exactas aplicadas. Esto nos permite:
+            </p>
             <ul>
-                <li><strong>Parte 1: Validación con Imágenes Sintéticas</strong> <span class="status-badge completed">Completado</span> - Implementación del pipeline completo de registro con validación cuantitativa usando transformaciones conocidas.</li>
-                <li><strong>Parte 2: Registro de las Imágenes del Comedor</strong> <span class="status-badge completed">Completado</span> - Registro y fusión de imágenes reales con técnicas de blending usando pirámides de imagen.</li>
-                <li><strong>Parte 3: Calibración y Medición</strong> <span class="status-badge pending">Pendiente</span> - Calibración con objetos de referencia y herramientas de medición.</li>
+                <li><strong>Cuantificar la precisión:</strong> Medir errores reales (RMSE, error angular, error de escala) 
+                en lugar de aproximaciones visuales.</li>
+                <li><strong>Entender limitaciones:</strong> Identificar bajo qué condiciones el algoritmo funciona mejor 
+                o peor.</li>
+                <li><strong>Optimizar parámetros:</strong> Determinar valores óptimos para detectores, ratio test, y 
+                otros hiperparámetros.</li>
+                <li><strong>Comparar métodos:</strong> Evaluar objetivamente diferentes detectores de características 
+                (SIFT, ORB, AKAZE) y técnicas de blending.</li>
             </ul>
-            
-            <hr>
-            
-            <h2>Parte 1: Validación Sintética</h2>
-            
-            <h3>Objetivos y Metodología</h3>
-            
-            <p>La primera parte del proyecto se enfoca en la validación cuantitativa del algoritmo de registro mediante imágenes sintéticas con transformaciones conocidas (ground truth). Esto permite evaluar la precisión del método comparando las transformaciones estimadas con las verdaderas.</p>
-            
-            <div class="metrics-grid">
-                <div class="metric">
-                    <div class="metric-value">15</div>
-                    <div class="metric-label">Imágenes Sintéticas</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">3</div>
-                    <div class="metric-label">Detectores Evaluados</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">100%</div>
-                    <div class="metric-label">Funcionalidad</div>
-                </div>
+
+            <div class="info-box">
+                <h4>🎯 Objetivos del Proyecto</h4>
+                <p>
+                    <strong>Parte 1:</strong> Validar el pipeline de registro usando 15 imágenes sintéticas con transformaciones 
+                    conocidas, comparando diferentes detectores y analizando el impacto del ratio test.<br><br>
+                    <strong>Parte 2:</strong> Crear una panorámica de alta calidad a partir de tres imágenes reales del comedor 
+                    usando Image Pyramid Stitching con Laplacian Pyramid Blending, comparando resultados entre detectores.<br><br>
+                    <strong>Parte 3:</strong> Realizar calibración y mediciones sobre la panorámica generada para demostrar 
+                    aplicaciones prácticas del registro.
+                </p>
             </div>
+
+            <!-- Marco Teórico -->
+            <h2>2. Marco Teórico</h2>
             
-            <h3>Métodos Implementados</h3>
+            <h3>2.1 Transformaciones Geométricas</h3>
+            <p>
+                En visión por computador, las transformaciones geométricas permiten relacionar coordenadas de puntos 
+                entre diferentes imágenes. Una transformación afín 2D puede representarse mediante una matriz de 3×3:
+            </p>
             
-            <p>Se implementaron tres algoritmos de detección de características para comparar su rendimiento:</p>
+            <pre><code>[ x' ]   [ a  b  tx ] [ x ]
+[ y' ] = [ c  d  ty ] [ y ]
+[ 1  ]   [ 0  0  1  ] [ 1 ]</code></pre>
             
+            <p>
+                Para transformaciones de similitud (que preservan ángulos y formas), la matriz se simplifica a:
+            </p>
+            
+            <pre><code>[ x' ]   [ s·cos(θ)  -s·sin(θ)   tx ] [ x ]
+[ y' ] = [ s·sin(θ)   s·cos(θ)   ty ] [ y ]
+[ 1  ]   [    0          0        1  ] [ 1 ]</code></pre>
+            
+            <p>Donde:</p>
             <ul>
-                <li><strong>SIFT (Scale-Invariant Feature Transform)</strong>: El más robusto y preciso, especialmente para transformaciones complejas. Genera características invariantes a escala, rotación e iluminación.</li>
-                <li><strong>ORB (Oriented FAST and Rotated BRIEF)</strong>: Más rápido que SIFT, adecuado para aplicaciones en tiempo real. Balance entre velocidad y precisión.</li>
-                <li><strong>AKAZE (Accelerated-KAZE)</strong>: Buen balance entre velocidad y precisión, robusto a variaciones de iluminación gracias a su uso de descriptores no lineales.</li>
+                <li><strong>θ:</strong> ángulo de rotación</li>
+                <li><strong>s:</strong> factor de escala uniforme</li>
+                <li><strong>(tx, ty):</strong> vector de traslación</li>
             </ul>
+
+            <p>
+                Para panorámicas con cambios de perspectiva más complejos, utilizamos transformaciones proyectivas 
+                (homografías), representadas por matrices de 3×3 con 8 grados de libertad:
+            </p>
             
-            <h3>Métricas de Evaluación</h3>
+            <pre><code>[ x' ]   [ h₁₁  h₁₂  h₁₃ ] [ x ]
+[ y' ] = [ h₂₁  h₂₂  h₂₃ ] [ y ]
+[ w' ]   [ h₃₁  h₃₂  h₃₃ ] [ 1 ]</code></pre>
+
+            <h3>2.2 Detectores de Características</h3>
+            <p>
+                Los detectores de características identifican puntos de interés (keypoints) en las imágenes que sean 
+                distintivos, repetibles e invariantes ante transformaciones geométricas y fotométricas. En este estudio 
+                comparamos tres detectores populares:
+            </p>
+
+            <h4>SIFT (Scale-Invariant Feature Transform)</h4>
+            <p>
+                Propuesto por Lowe (2004), SIFT detecta extremos en el espacio escala usando diferencias de Gaussianas 
+                (DoG). Es robusto ante cambios de escala, rotación, iluminación y pequeñas variaciones de punto de vista. 
+                Los descriptores SIFT son vectores de 128 dimensiones que codifican información de gradientes locales. 
+                Aunque computacionalmente costoso, SIFT ofrece la mayor precisión y robustez.
+            </p>
+
+            <h4>ORB (Oriented FAST and Rotated BRIEF)</h4>
+            <p>
+                Desarrollado por Rublee et al. (2011), ORB es una alternativa eficiente que combina el detector FAST 
+                con descriptores BRIEF orientados. Es significativamente más rápido que SIFT (10-100×) pero puede ser 
+                menos robusto ante cambios de escala grandes y variaciones de iluminación. Los descriptores ORB son 
+                binarios de 256 bits, lo que permite comparaciones rápidas mediante distancia Hamming.
+            </p>
+
+            <h4>AKAZE (Accelerated-KAZE)</h4>
+            <p>
+                Introducido por Alcantarilla et al. (2013), AKAZE usa difusión no lineal para la detección de características 
+                en espacios de escala no lineales. Ofrece un buen balance entre velocidad y precisión, siendo invariante 
+                ante cambios de escala y rotación. AKAZE es más rápido que SIFT pero mantiene buena robustez.
+            </p>
+
+            <h3>2.3 Emparejamiento de Características</h3>
+            <p>
+                El emparejamiento se realiza mediante fuerza bruta (Brute Force Matcher), comparando descriptores entre 
+                imágenes. Para filtrar correspondencias incorrectas, aplicamos el <strong>ratio test</strong> propuesto por Lowe:
+            </p>
             
-            <p>Las siguientes métricas fueron calculadas para cada registro:</p>
+            <pre><code>if distance(match₁) < ratio × distance(match₂):
+    accept match₁</code></pre>
             
+            <p>
+                Un ratio típico es 0.75, pero exploramos su impacto en el rango [0.5, 0.95]. Ratios bajos generan menos 
+                correspondencias pero más confiables, mientras que ratios altos aumentan correspondencias pero incluyen 
+                más outliers.
+            </p>
+
+            <h3>2.4 RANSAC para Estimación Robusta</h3>
+            <p>
+                RANSAC (RANdom SAmple Consensus), propuesto por Fischler y Bolles (1981), es un método iterativo para 
+                estimar parámetros de modelos en presencia de outliers. En nuestro caso, lo usamos para estimar la 
+                homografía que mejor explica las correspondencias:
+            </p>
+            
+            <ol>
+                <li>Seleccionar aleatoriamente un conjunto mínimo de correspondencias (4 puntos para homografía)</li>
+                <li>Calcular el modelo (homografía) usando estos puntos</li>
+                <li>Contar cuántos puntos adicionales son consistentes con el modelo (inliers)</li>
+                <li>Repetir N iteraciones y seleccionar el modelo con más inliers</li>
+            </ol>
+
+            <h3>2.5 Image Pyramid Stitching</h3>
+            <p>
+                Para crear panorámicas de alta calidad, utilizamos un enfoque basado en pirámides de imágenes:
+            </p>
+            
+            <h4>Gaussian Pyramid</h4>
+            <p>
+                Una pirámide gaussiana es una representación multi-escala de una imagen, donde cada nivel es una versión 
+                suavizada y submuestreada del nivel anterior. Esto permite detectar características a diferentes escalas 
+                y mejorar la robustez del matching.
+            </p>
+            
+            <h4>Laplacian Pyramid Blending</h4>
+            <p>
+                Propuesto por Burt y Adelson (1983), el blending mediante pirámide laplaciana combina imágenes en diferentes 
+                bandas de frecuencia. Esto permite transiciones suaves sin halos visibles, especialmente útil cuando hay 
+                diferencias de exposición o iluminación entre imágenes. El proceso consiste en:
+            </p>
+            <ol>
+                <li>Construir pirámides laplacianas para ambas imágenes</li>
+                <li>Construir pirámides gaussianas para las máscaras de blending</li>
+                <li>Mezclar cada nivel de la pirámide por separado</li>
+                <li>Reconstruir la imagen final desde la pirámide mezclada</li>
+            </ol>
+
+            <!-- Metodología -->
+            <h2>3. Metodología</h2>
+
+            <h3>3.1 Descripción del Pipeline Implementado</h3>
+            
+            <div class="flow-diagram">
+                <h4>Pipeline de Registro de Imágenes</h4>
+                <div class="flow-step">
+                    <h5>1. Detección de Características</h5>
+                    <p>Identificación de keypoints usando SIFT/ORB/AKAZE. En el caso de panorámicas, se usa detección 
+                    multi-escala mediante pirámide gaussiana.</p>
+                </div>
+                <div class="flow-step">
+                    <h5>2. Cálculo de Descriptores</h5>
+                    <p>Generación de vectores descriptivos para cada keypoint detectado.</p>
+                </div>
+                <div class="flow-step">
+                    <h5>3. Emparejamiento</h5>
+                    <p>Matching mediante fuerza bruta con ratio test de Lowe para filtrar correspondencias ambiguas.</p>
+                </div>
+                <div class="flow-step">
+                    <h5>4. Estimación de Homografía</h5>
+                    <p>Cálculo robusto usando RANSAC para filtrar outliers y estimar la transformación geométrica.</p>
+                </div>
+                <div class="flow-step">
+                    <h5>5. Warping</h5>
+                    <p>Aplicación de la transformación para alinear las imágenes en un sistema de coordenadas común.</p>
+                </div>
+                <div class="flow-step">
+                    <h5>6. Blending</h5>
+                    <p>Fusión de imágenes usando Laplacian Pyramid Blending para transiciones suaves.</p>
+                </div>
+            </div>
+
+            <h3>3.2 Justificación de Decisiones Técnicas</h3>
+            
+            <h4>Selección de Detector: SIFT como Base</h4>
+            <p>
+                Aunque comparamos SIFT, ORB y AKAZE, SIFT fue seleccionado como detector principal debido a su superior 
+                precisión demostrada en la validación con imágenes sintéticas (RMSE = 0.361 px vs 0.474 px de AKAZE y 
+                3.366 px de ORB). La mayor robustez de SIFT compensa su mayor costo computacional para aplicaciones donde 
+                la precisión es crítica.
+            </p>
+
+            <h4>Ratio Test de 0.75</h4>
+            <p>
+                El análisis del ratio test mostró que valores entre 0.6-0.75 ofrecen el mejor balance entre cantidad y 
+                calidad de correspondencias. El valor clásico de 0.75 mantiene suficientes correspondencias (75 matches) 
+                con una tasa de inliers razonable (76%), permitiendo que RANSAC filtre efectivamente los outliers adicionales.
+            </p>
+
+            <h4>Image Pyramid Stitching</h4>
+            <p>
+                Se implementó detección multi-escala mediante pirámide gaussiana para mejorar la robustez ante cambios 
+                de escala y perspectiva. Esto es especialmente importante en panorámicas donde las imágenes pueden tener 
+                diferentes niveles de zoom o ángulos de captura.
+            </p>
+
+            <h4>Laplacian Pyramid Blending</h4>
+            <p>
+                Se eligió blending mediante pirámide laplaciana sobre métodos simples (como feather blending) porque:
+            </p>
             <ul>
-                <li><strong>RMSE (Root Mean Square Error)</strong>: Error cuadrático medio en la matriz de homografía y en puntos transformados.</li>
-                <li><strong>Error de Rotación</strong>: Diferencia absoluta en grados entre la rotación verdadera y la estimada.</li>
-                <li><strong>Error de Escala</strong>: Diferencia porcentual en el factor de escala entre valor real y estimado.</li>
-                <li><strong>Error de Traslación</strong>: Distancia euclidiana en píxeles entre la traslación verdadera y estimada.</li>
-                <li><strong>Número de Inliers</strong>: Cantidad de correspondencias válidas después de filtrar con RANSAC.</li>
+                <li>Elimina halos visibles en zonas de transición</li>
+                <li>Maneja mejor diferencias de exposición e iluminación</li>
+                <li>Preserva detalles finos en texturas y bordes</li>
+                <li>Produce resultados visualmente superiores en comparación directa</li>
             </ul>
+
+            <h3>3.3 Generación de Dataset Sintético</h3>
+            <p>
+                Para la validación cuantitativa, se generó un dataset de 15 imágenes sintéticas aplicando transformaciones 
+                conocidas a una imagen base con patrones geométricos:
+            </p>
+            <ul>
+                <li><strong>Rotaciones:</strong> desde -30° hasta +30° en incrementos de ~4.3°</li>
+                <li><strong>Escalas:</strong> desde 0.8 hasta 1.2 (variación del ±20%)</li>
+                <li><strong>Traslaciones:</strong> proporcionales a la rotación y escala</li>
+            </ul>
+            <p>
+                La imagen central (imagen 7) corresponde a la transformación identidad (sin cambios), sirviendo como 
+                punto de referencia para validar la precisión del pipeline.
+            </p>
+
+            <h3>3.4 Métricas de Evaluación</h3>
+            <p>Para cuantificar la precisión del registro, calculamos:</p>
+
+            <h4>Error Cuadrático Medio (RMSE)</h4>
+            <p>Mide el error promedio en la posición de los puntos transformados:</p>
+            <pre><code>RMSE = √(Σ ||p'ᵢ - H·pᵢ||² / n)</code></pre>
+
+            <h4>Error Angular</h4>
+            <p>Diferencia absoluta entre la rotación verdadera y estimada:</p>
+            <pre><code>Error Angular = |θ_true - θ_estimated|</code></pre>
+
+            <h4>Error de Traslación</h4>
+            <p>Distancia euclidiana entre vectores de traslación:</p>
+            <pre><code>Error Traslación = √((tx_true - tx_est)² + (ty_true - ty_est)²)</code></pre>
+
+            <h4>Error de Escala</h4>
+            <p>Error porcentual en el factor de escala:</p>
+            <pre><code>Error Escala (%) = |s_true - s_estimated| / s_true × 100</code></pre>
+
+            <!-- Experimentos y Resultados -->
+            <h2>4. Experimentos y Resultados</h2>
+
+            <h3>4.1 Validación con Imágenes Sintéticas</h3>
             
-            <hr>
-            
-            <h2>Visualizaciones de Resultados</h2>
-            
-            <h3>Análisis Comparativo</h3>
-            
+            <p>
+                El primer experimento evaluó el pipeline completo sobre las 15 imágenes sintéticas usando SIFT como 
+                detector por defecto y un ratio test de 0.75.
+            </p>
+
             <div class="image-container">
-                <img src="results/figures/punto_1/comparacion_detectores.png" alt="Comparación de Detectores" onclick="openModal(this)">
-                <p class="image-caption">Comparación del rendimiento de SIFT, ORB y AKAZE en diferentes tipos de transformaciones.</p>
+                <img src="results/figures/punto_1/registro_individual.png" alt="Registro individual de imágenes sintéticas">
+                <p class="image-caption">
+                    Figura 1: Visualización del registro para cada par de imágenes del dataset sintético. 
+                    Se muestra la imagen original, la transformada, y la superposición tras el registro.
+                </p>
             </div>
-            
+
             <div class="image-container">
-                <img src="results/figures/punto_1/estudio_ratio_test.png" alt="Estudio de Ratio Test" onclick="openModal(this)">
-                <p class="image-caption">Análisis del efecto del parámetro <code>ratio_threshold</code> en la calidad del registro y el número de matches obtenidos.</p>
+                <img src="results/figures/punto_1/matches_visualizacion.png" alt="Visualización de correspondencias">
+                <p class="image-caption">
+                    Figura 2: Visualización de las correspondencias de características detectadas entre 
+                    pares de imágenes. Las líneas verdes indican correspondencias consideradas inliers por RANSAC.
+                </p>
             </div>
-            
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imagen</th>
+                            <th>Rotación (°)</th>
+                            <th>RMSE (px)</th>
+                            <th>Error Angular (°)</th>
+                            <th>Error Trasl. (px)</th>
+                            <th>Error Escala (%)</th>
+                            <th>Inliers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0</td>
+                            <td>-30.0</td>
+                            <td>0.415</td>
+                            <td>0.029</td>
+                            <td>0.442</td>
+                            <td>0.023</td>
+                            <td>43</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>-17.1</td>
+                            <td>0.720</td>
+                            <td>0.143</td>
+                            <td>0.297</td>
+                            <td>0.022</td>
+                            <td>44</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>-4.3</td>
+                            <td>0.135</td>
+                            <td>0.019</td>
+                            <td>0.290</td>
+                            <td>0.043</td>
+                            <td>74</td>
+                        </tr>
+                        <tr style="background: #e0f2fe;">
+                            <td><strong>7</strong></td>
+                            <td><strong>0.0</strong></td>
+                            <td><strong>3.2e-14</strong></td>
+                            <td><strong>1.4e-14</strong></td>
+                            <td><strong>9.8e-14</strong></td>
+                            <td><strong>4.4e-14</strong></td>
+                            <td><strong>249</td>
+                        </tr>
+                        <tr>
+                            <td>10</td>
+                            <td>12.9</td>
+                            <td>0.474</td>
+                            <td>0.063</td>
+                            <td>0.644</td>
+                            <td>0.121</td>
+                            <td>72</td>
+                        </tr>
+                        <tr>
+                            <td>13</td>
+                            <td>25.7</td>
+                            <td>0.240</td>
+                            <td>0.024</td>
+                            <td>0.201</td>
+                            <td>0.006</td>
+                            <td>49</td>
+                        </tr>
+                        <tr>
+                            <td>14</td>
+                            <td>30.0</td>
+                            <td>0.289</td>
+                            <td>0.049</td>
+                            <td>0.547</td>
+                            <td>0.113</td>
+                            <td>54</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="image-caption">
+                Tabla 1: Resultados representativos del registro sobre el dataset sintético. 
+                La imagen 7 (identidad) muestra errores prácticamente nulos, validando el pipeline.
+            </p>
+
             <div class="image-container">
-                <img src="results/figures/punto_1/analisis_errores.png" alt="Análisis de Errores" onclick="openModal(this)">
-                <p class="image-caption">Distribución de errores por tipo de transformación aplicada a las imágenes sintéticas.</p>
+                <img src="results/figures/punto_1/analisis_errores.png" alt="Análisis de errores por métrica">
+                <p class="image-caption">
+                    Figura 3: Distribución de errores para cada métrica evaluada en el dataset completo. 
+                    Los gráficos muestran la relación entre errores y parámetros de transformación.
+                </p>
             </div>
+
+            <div class="info-box">
+                <h4>📊 Observaciones Clave del Dataset Sintético</h4>
+                <p>
+                    <strong>1. Precisión sub-píxel:</strong> El RMSE promedio es de 0.498 ± 0.312 píxeles, indicando 
+                    alta precisión de sub-píxel en la alineación.<br><br>
+                    <strong>2. Estimación angular precisa:</strong> El error angular promedio es de 0.061 ± 0.072°, 
+                    demostrando excelente estimación de rotación.<br><br>
+                    <strong>3. Validación del pipeline:</strong> La imagen 7 (transformación identidad) presenta 
+                    errores de precisión de punto flotante (≈ 10⁻¹⁴), confirmando que el pipeline funciona correctamente.<br><br>
+                    <strong>4. Robustez:</strong> El número de inliers disminuye con transformaciones más extremas, 
+                    pero se mantienen suficientes correspondencias robustas para estimar la homografía.
+                </p>
+            </div>
+
+            <h3>4.2 Comparación de Detectores de Características</h3>
             
-            <h3>Ejemplos de Registro</h3>
-            
+            <p>
+                Evaluamos SIFT, ORB y AKAZE sobre la misma imagen de prueba (rotación -15°, escala 1.1) para comparar 
+                su desempeño.
+            </p>
+
             <div class="image-container">
-                <img src="results/figures/punto_1/matches_visualizacion.png" alt="Visualización de Matches" onclick="openModal(this)">
-                <p class="image-caption">Visualización de las correspondencias de características detectadas entre dos imágenes.</p>
+                <img src="results/figures/punto_1/comparacion_detectores.png" alt="Comparación de detectores">
+                <p class="image-caption">
+                    Figura 4: Comparación visual y cuantitativa de los tres detectores de características. 
+                    Se muestran los keypoints detectados, correspondencias, y métricas de error.
+                </p>
             </div>
-            
-            <div class="image-container">
-                <img src="results/figures/punto_1/registro_individual.png" alt="Registro Individual" onclick="openModal(this)">
-                <p class="image-caption">Ejemplo de registro exitoso entre un par de imágenes con transformación aplicada.</p>
-            </div>
-            
-            <hr>
-            
-            <h2>Dataset Sintético</h2>
-            
-            <p>Se generaron 15 imágenes sintéticas aplicando transformaciones conocidas que cubren un rango de rotaciones desde -30° hasta +30° con escalas y traslaciones variables. Estas imágenes permiten evaluar el comportamiento del algoritmo bajo diferentes condiciones.</p>
-            
-            <div class="image-grid">
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_0.png" alt="Imagen Sintética 0" onclick="openModal(this)">
-                    <h4>Imagen 0</h4>
-                    <p>Base de referencia</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_1.png" alt="Imagen Sintética 1" onclick="openModal(this)">
-                    <h4>Imagen 1</h4>
-                    <p>-30°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_2.png" alt="Imagen Sintética 2" onclick="openModal(this)">
-                    <h4>Imagen 2</h4>
-                    <p>-25.7°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_3.png" alt="Imagen Sintética 3" onclick="openModal(this)">
-                    <h4>Imagen 3</h4>
-                    <p>-21.4°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_4.png" alt="Imagen Sintética 4" onclick="openModal(this)">
-                    <h4>Imagen 4</h4>
-                    <p>-17.1°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_5.png" alt="Imagen Sintética 5" onclick="openModal(this)">
-                    <h4>Imagen 5</h4>
-                    <p>-12.9°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_6.png" alt="Imagen Sintética 6" onclick="openModal(this)">
-                    <h4>Imagen 6</h4>
-                    <p>-8.6°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_7.png" alt="Imagen Sintética 7" onclick="openModal(this)">
-                    <h4>Imagen 7</h4>
-                    <p>0° (referencia)</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_8.png" alt="Imagen Sintética 8" onclick="openModal(this)">
-                    <h4>Imagen 8</h4>
-                    <p>+4.3°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_9.png" alt="Imagen Sintética 9" onclick="openModal(this)">
-                    <h4>Imagen 9</h4>
-                    <p>+8.6°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_10.png" alt="Imagen Sintética 10" onclick="openModal(this)">
-                    <h4>Imagen 10</h4>
-                    <p>+12.9°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_11.png" alt="Imagen Sintética 11" onclick="openModal(this)">
-                    <h4>Imagen 11</h4>
-                    <p>+17.1°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_12.png" alt="Imagen Sintética 12" onclick="openModal(this)">
-                    <h4>Imagen 12</h4>
-                    <p>+21.4°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_13.png" alt="Imagen Sintética 13" onclick="openModal(this)">
-                    <h4>Imagen 13</h4>
-                    <p>+25.7°</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/synthetic/image_14.png" alt="Imagen Sintética 14" onclick="openModal(this)">
-                    <h4>Imagen 14</h4>
-                    <p>+30°</p>
-                </div>
-            </div>
-            
-            <hr>
-            
-            <h2>Resultados Cuantitativos</h2>
-            
-            <h3>Comparación de Detectores</h3>
-            
-            <p>La siguiente tabla muestra los resultados promedio obtenidos con cada detector en el dataset completo:</p>
-            
+
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Detector</th>
-                            <th>RMSE Promedio</th>
+                            <th>RMSE (px)</th>
                             <th>Error Angular (°)</th>
-                            <th>Error Traslación (px)</th>
+                            <th>Error Trasl. (px)</th>
                             <th>Error Escala (%)</th>
-                            <th>Matches Promedio</th>
-                            <th>Inliers Promedio</th>
+                            <th>Matches</th>
+                            <th>Inliers</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="background: #d1fae5;">
                             <td><strong>SIFT</strong></td>
-                            <td>0.361</td>
-                            <td>0.021</td>
-                            <td>0.514</td>
-                            <td>0.158</td>
+                            <td><strong>0.361</strong></td>
+                            <td><strong>0.021</strong></td>
+                            <td><strong>0.514</strong></td>
+                            <td><strong>0.158</strong></td>
                             <td>75</td>
-                            <td>57</td>
+                            <td><strong>57</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>ORB</strong></td>
+                            <td>ORB</td>
                             <td>3.366</td>
                             <td>0.489</td>
                             <td>3.556</td>
                             <td>1.517</td>
-                            <td>167</td>
+                            <td><strong>167</strong></td>
                             <td>154</td>
                         </tr>
                         <tr>
-                            <td><strong>AKAZE</strong></td>
+                            <td>AKAZE</td>
                             <td>0.474</td>
                             <td>0.009</td>
                             <td>0.764</td>
@@ -703,24 +788,52 @@
                     </tbody>
                 </table>
             </div>
+
+            <p class="image-caption">
+                Tabla 2: Comparación cuantitativa de detectores. SIFT ofrece el mejor balance 
+                precisión-calidad, mientras ORB genera más matches pero con mayor error.
+            </p>
+
+            <div class="info-box">
+                <h4>🔍 Análisis Comparativo de Detectores</h4>
+                <p>
+                    <strong>SIFT:</strong> Mejor precisión general (RMSE = 0.361 px). Detecta menos características 
+                    pero de mayor calidad. Recomendado cuando la precisión es prioritaria.<br><br>
+                    <strong>ORB:</strong> Mayor número de correspondencias (167 matches) pero con errores 
+                    significativamente mayores (RMSE = 3.366 px). Útil cuando se requiere velocidad sobre 
+                    precisión, pero no recomendado para aplicaciones que requieren alta precisión.<br><br>
+                    <strong>AKAZE:</strong> Buen compromiso entre velocidad y precisión. Error angular mínimo 
+                    (0.009°) pero mayor error de traslación que SIFT. Alternativa versátil cuando se necesita 
+                    balance entre velocidad y precisión.
+                </p>
+            </div>
+
+            <h3>4.3 Estudio del Ratio Test</h3>
             
-            <p><strong>Análisis:</strong> SIFT presenta el menor RMSE y error angular, aunque AKAZE tiene un error angular ligeramente menor. ORB genera más matches pero con mayor error, lo que sugiere mayor sensibilidad a outliers. AKAZE ofrece el mejor balance entre precisión y número de correspondencias.</p>
-            
-            <h3>Estudio de Parámetros: Ratio Test</h3>
-            
-            <p>El parámetro <code>ratio_threshold</code> en el ratio test de Lowe afecta significativamente la calidad del registro. Valores muy bajos filtran demasiados matches válidos, mientras que valores muy altos permiten más outliers. Se evaluó el rango de 0.5 a 0.95:</p>
-            
+            <p>
+                El ratio test de Lowe filtra correspondencias ambiguas. Exploramos ratios de 0.5 a 0.95 en incrementos 
+                de 0.05 para entender su impacto en la calidad del registro.
+            </p>
+
+            <div class="image-container">
+                <img src="results/figures/punto_1/estudio_ratio_test.png" alt="Estudio del ratio test">
+                <p class="image-caption">
+                    Figura 5: Efecto del ratio test en las métricas de registro. Los gráficos muestran 
+                    cómo varían RMSE, errores angulares, de traslación y escala, así como el número de 
+                    correspondencias en función del ratio.
+                </p>
+            </div>
+
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
-                            <th>Ratio Threshold</th>
-                            <th>RMSE</th>
+                            <th>Ratio</th>
+                            <th>RMSE (px)</th>
                             <th>Error Angular (°)</th>
-                            <th>Error Traslación (px)</th>
-                            <th>Error Escala (%)</th>
                             <th>Matches</th>
                             <th>Inliers</th>
+                            <th>Tasa Inliers</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -728,401 +841,471 @@
                             <td>0.50</td>
                             <td>0.503</td>
                             <td>0.010</td>
-                            <td>0.564</td>
-                            <td>0.234</td>
                             <td>49</td>
                             <td>44</td>
-                        </tr>
-                        <tr>
-                            <td>0.55</td>
-                            <td>0.405</td>
-                            <td>0.024</td>
-                            <td>0.408</td>
-                            <td>0.159</td>
-                            <td>51</td>
-                            <td>45</td>
+                            <td>89.8%</td>
                         </tr>
                         <tr>
                             <td>0.60</td>
                             <td>0.310</td>
                             <td>0.022</td>
-                            <td>0.373</td>
-                            <td>0.097</td>
                             <td>55</td>
                             <td>48</td>
+                            <td>87.3%</td>
                         </tr>
-                        <tr>
-                            <td>0.65</td>
-                            <td>0.378</td>
-                            <td>0.005</td>
-                            <td>0.523</td>
-                            <td>0.167</td>
-                            <td>60</td>
-                            <td>52</td>
-                        </tr>
-                        <tr style="background: #eff6ff;">
-                            <td><strong>0.70</strong></td>
-                            <td><strong>0.359</strong></td>
-                            <td><strong>0.008</strong></td>
-                            <td><strong>0.531</strong></td>
-                            <td><strong>0.161</strong></td>
-                            <td>68</td>
-                            <td>55</td>
-                        </tr>
-                        <tr style="background: #eff6ff;">
+                        <tr style="background: #d1fae5;">
                             <td><strong>0.75</strong></td>
                             <td><strong>0.361</strong></td>
                             <td><strong>0.021</strong></td>
-                            <td><strong>0.514</strong></td>
-                            <td><strong>0.158</strong></td>
-                            <td>75</td>
-                            <td>57</td>
-                        </tr>
-                        <tr>
-                            <td>0.80</td>
-                            <td>0.389</td>
-                            <td>0.042</td>
-                            <td>0.525</td>
-                            <td>0.163</td>
-                            <td>87</td>
-                            <td>60</td>
+                            <td><strong>75</strong></td>
+                            <td><strong>57</strong></td>
+                            <td><strong>76.0%</strong></td>
                         </tr>
                         <tr>
                             <td>0.85</td>
                             <td>0.401</td>
                             <td>0.048</td>
-                            <td>0.525</td>
-                            <td>0.165</td>
                             <td>93</td>
                             <td>63</td>
-                        </tr>
-                        <tr>
-                            <td>0.90</td>
-                            <td>0.392</td>
-                            <td>0.047</td>
-                            <td>0.510</td>
-                            <td>0.170</td>
-                            <td>114</td>
-                            <td>67</td>
+                            <td>67.7%</td>
                         </tr>
                         <tr>
                             <td>0.95</td>
                             <td>0.408</td>
                             <td>0.053</td>
-                            <td>0.512</td>
-                            <td>0.180</td>
                             <td>158</td>
                             <td>73</td>
+                            <td>46.2%</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <p class="image-caption">
+                Tabla 3: Impacto del ratio test en el emparejamiento. El valor clásico de 0.75 
+                ofrece un buen balance entre número de correspondencias y calidad.
+            </p>
+
+            <h3>4.4 Registro y Fusión de Imágenes Reales</h3>
             
-            <p><strong>Conclusión:</strong> El rango óptimo se encuentra entre 0.70 y 0.75, donde se obtiene el mejor balance entre precisión (RMSE bajo) y número suficiente de matches para estimar la homografía de manera robusta.</p>
-            
-            <h3>Resultados del Dataset Completo</h3>
-            
-            <p>Algunos hallazgos destacados del análisis completo:</p>
-            
-            <ul>
-                <li><strong>Mejor registro:</strong> Imagen 7 (sin transformación) - RMSE ≈ 0, Error angular ≈ 0°. Como era esperado, el registro es perfecto cuando no hay transformación.</li>
-                <li><strong>Registros con menor error:</strong> Transformaciones pequeñas (-4.3° a +4.3°) presentan RMSE < 0.5, demostrando alta precisión para rotaciones menores.</li>
-                <li><strong>Registros más desafiantes:</strong> Transformaciones grandes (±30°) presentan RMSE > 0.8, indicando que el error aumenta con la magnitud de la transformación.</li>
-                <li><strong>Tendencia general:</strong> Existe una correlación positiva entre la magnitud de la transformación y el error de registro, comportamiento esperado en sistemas de registro basados en características.</li>
-            </ul>
-            
-            <div class="info-box">
-                <strong>📥 Datos Completos Disponibles</strong>
-                <p style="margin-bottom: 0;">Las mediciones detalladas están disponibles en formato CSV:</p>
-                <ul style="margin-top: 8px;">
-                    <li><code>results/measurements/punto_1/comparacion_detectores.csv</code></li>
-                    <li><code>results/measurements/punto_1/estudio_ratio_test.csv</code></li>
-                    <li><code>results/measurements/punto_1/resultados_dataset.csv</code></li>
-                </ul>
+            <p>
+                Aplicamos el pipeline validado a tres imágenes reales del comedor (IMG01.jpg, IMG02.jpg, IMG03.jpg) 
+                usando Image Pyramid Stitching con Laplacian Pyramid Blending.
+            </p>
+
+            <div class="image-container">
+                <img src="results/panoramic/comparacion_panoramas_detectores_pyramid.jpg" alt="Comparación de panorámicas">
+                <p class="image-caption">
+                    Figura 6: Panorámicas generadas usando diferentes detectores. De izquierda a derecha: 
+                    SIFT, ORB, AKAZE. SIFT produce la mejor alineación y transiciones más suaves.
+                </p>
             </div>
-            
-            <hr>
-            
-            <h2>Parte 2: Registro de las Imágenes del Comedor</h2>
-            
-            <h3>Objetivos y Metodología</h3>
-            
-            <p>La segunda parte del proyecto se enfoca en el registro y fusión de imágenes reales del comedor utilizando técnicas avanzadas de blending con pirámides de imagen. A diferencia de la Parte 1 donde se trabajó con transformaciones conocidas, aquí se enfrentan desafíos reales como diferencias de exposición, variaciones de iluminación y la necesidad de crear transiciones suaves entre imágenes fusionadas.</p>
-            
-            <div class="metrics-grid">
-                <div class="metric">
-                    <div class="metric-value">3</div>
-                    <div class="metric-label">Imágenes del Comedor</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">3</div>
-                    <div class="metric-label">Detectores Evaluados</div>
-                </div>
-                <div class="metric">
-                    <div class="metric-value">100%</div>
-                    <div class="metric-label">Éxito en Fusión</div>
-                </div>
-            </div>
-            
-            <h3>Dataset de Imágenes</h3>
-            
-            <p>Se utilizaron tres imágenes de alta resolución (4032x3024 píxeles) capturadas del comedor desde diferentes perspectivas. Estas imágenes presentan:</p>
-            
-            <ul>
-                <li><strong>Solapamiento parcial</strong>: Cada imagen comparte región con al menos una imagen adyacente para permitir el registro.</li>
-                <li><strong>Variaciones de perspectiva</strong>: Las imágenes fueron capturadas desde diferentes ángulos y posiciones.</li>
-                <li><strong>Diferencias de exposición</strong>: Variaciones naturales en iluminación debido a cambios en la orientación de la cámara.</li>
-            </ul>
-            
-            <div class="image-grid">
-                <div class="image-grid-item">
-                    <img src="data/original/IMG01.jpg" alt="Imagen Original 1" onclick="openModal(this)">
-                    <h4>Imagen 1</h4>
-                    <p>4032 × 3024 px</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/original/IMG02.jpg" alt="Imagen Original 2" onclick="openModal(this)">
-                    <h4>Imagen 2</h4>
-                    <p>4032 × 3024 px</p>
-                </div>
-                <div class="image-grid-item">
-                    <img src="data/original/IMG03.jpg" alt="Imagen Original 3" onclick="openModal(this)">
-                    <h4>Imagen 3</h4>
-                    <p>3024 × 4032 px</p>
-                </div>
-            </div>
-            
-            <h3>Algoritmo de Fusión con Pirámides</h3>
-            
-            <p>Se implementó un algoritmo avanzado de stitching basado en pirámides de imagen que mejora significativamente la calidad de la fusión:</p>
-            
-            <ul>
-                <li><strong>Pirámide Gaussiana</strong>: Detección multi-escala de características para mejorar la robustez del registro.</li>
-                <li><strong>Pirámide Laplaciana</strong>: Blending multi-banda que fusiona diferentes frecuencias espaciales por separado, creando transiciones más suaves.</li>
-                <li><strong>Blending con Distance Transform</strong>: Máscaras de fusión suaves basadas en distancia a los bordes, evitando artefactos visibles.</li>
-                <li><strong>Registro Secuencial</strong>: Cada imagen se registra respecto a la anterior, acumulando transformaciones hacia un espacio común.</li>
-            </ul>
-            
-            <div class="info-box">
-                <strong>🔧 Ventajas del Enfoque con Pirámides</strong>
-                <p style="margin-bottom: 0;">El blending multi-banda con pirámides Laplacianas permite fusionar diferentes componentes de frecuencia (bajas, medias y altas) de manera independiente. Esto resulta en panorámicas más naturales sin artefactos de ghosting o discontinuidades visibles en las regiones de solapamiento.</p>
-            </div>
-            
-            <h3>Comparación de Detectores</h3>
-            
-            <p>Se evaluaron los tres detectores (SIFT, ORB y AKAZE) en el contexto de fusión panorámica real. Los resultados muestran diferencias significativas en rendimiento y calidad:</p>
-            
+
             <div class="table-container">
                 <table>
                     <thead>
                         <tr>
                             <th>Detector</th>
                             <th>Tiempo (s)</th>
-                            <th>Keypoints Totales</th>
-                            <th>Matches Totales</th>
-                            <th>Inliers Totales</th>
                             <th>Tamaño Panorámica</th>
-                            <th>Éxito</th>
+                            <th>Keypoints</th>
+                            <th>Matches</th>
+                            <th>Inliers</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr style="background: #d1fae5;">
                             <td><strong>SIFT</strong></td>
-                            <td>32.75</td>
-                            <td>169,810</td>
-                            <td>11,926</td>
-                            <td>6,537</td>
-                            <td>9395 × 9612</td>
-                            <td>✓</td>
+                            <td><strong>34.26</strong></td>
+                            <td><strong>9395×9612</strong></td>
+                            <td><strong>169,810</strong></td>
+                            <td><strong>11,926</strong></td>
+                            <td><strong>6,537</strong></td>
                         </tr>
                         <tr>
-                            <td><strong>ORB</strong></td>
-                            <td>9.79</td>
+                            <td>ORB</td>
+                            <td>11.75</td>
+                            <td>9227×9709</td>
                             <td>8,000</td>
                             <td>899</td>
                             <td>592</td>
-                            <td>9227 × 9709</td>
-                            <td>✓</td>
                         </tr>
                         <tr>
-                            <td><strong>AKAZE</strong></td>
-                            <td>18.46</td>
+                            <td>AKAZE</td>
+                            <td>19.47</td>
+                            <td>10251×9379</td>
                             <td>73,528</td>
                             <td>4,173</td>
                             <td>2,250</td>
-                            <td>10251 × 9379</td>
-                            <td>✓</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <p class="image-caption">
+                Tabla 4: Comparación de detectores en la creación de panorámicas. SIFT ofrece la mejor 
+                calidad aunque con mayor tiempo de ejecución.
+            </p>
+
+            <div class="image-container">
+                <img src="results/panoramic/comparacion_metricas_detectores_pyramid.jpg" alt="Comparación de métricas">
+                <p class="image-caption">
+                    Figura 7: Comparación cuantitativa de métricas entre detectores para la creación de panorámicas.
+                </p>
+            </div>
+
+            <h3>4.5 Comparación de Técnicas de Blending</h3>
             
-            <p><strong>Análisis:</strong></p>
+            <p>
+                Comparamos dos técnicas de blending: Feather blending y Laplacian Pyramid Blending.
+            </p>
+
+            <div class="image-grid">
+                <div class="image-grid-item">
+                    <img src="results/panoramic/pair_SIFT_feather.jpg" alt="Feather blending">
+                    <h4>Feather Blending</h4>
+                    <p>Transiciones suaves pero con halos visibles en zonas de diferente exposición</p>
+                </div>
+                <div class="image-grid-item">
+                    <img src="results/panoramic/pair_SIFT_laplacian.jpg" alt="Laplacian pyramid blending">
+                    <h4>Laplacian Pyramid</h4>
+                    <p>Mejor manejo de diferencias de iluminación y preservación de detalles finos</p>
+                </div>
+            </div>
+
+            <p class="image-caption">
+                Figura 8: Comparación de técnicas de blending. Laplacian Pyramid Blending produce 
+                resultados visualmente superiores con transiciones más naturales.
+            </p>
+
+            <div class="image-container">
+                <img src="results/panoramic/trio_SIFT_feather.jpg" alt="Panorámica final con tres imágenes">
+                <p class="image-caption">
+                    Figura 9: Panorámica final fusionada de las tres imágenes del comedor usando SIFT 
+                    y Laplacian Pyramid Blending.
+                </p>
+            </div>
+
+            <h3>4.6 Calibración y Mediciones</h3>
             
+            <p>
+                Se realizó calibración usando un objeto de referencia conocido (cuadro de 117 cm) y se aplicaron 
+                mediciones sobre la panorámica generada.
+            </p>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Objeto</th>
+                            <th>Longitud Medida (px)</th>
+                            <th>Longitud Medida (cm)</th>
+                            <th>Longitud Real (cm)</th>
+                            <th>Error Relativo (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #e0f2fe;">
+                            <td><strong>Referencia</strong></td>
+                            <td><strong>Cuadro</strong></td>
+                            <td><strong>2129.69</strong></td>
+                            <td><strong>117.0</strong></td>
+                            <td><strong>117.0</strong></td>
+                            <td><strong>0.0</strong></td>
+                        </tr>
+                        <tr>
+                            <td>Validación</td>
+                            <td>Mesa</td>
+                            <td>907.85</td>
+                            <td>49.87</td>
+                            <td>161.1</td>
+                            <td>69.04</td>
+                        </tr>
+                        <tr>
+                            <td>Medición</td>
+                            <td>Objeto 1</td>
+                            <td>565.41</td>
+                            <td>31.06</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="image-caption">
+                Tabla 5: Resultados de calibración y mediciones sobre la panorámica. La escala calculada 
+                fue de 0.055 cm/px. El error en la validación con la mesa indica limitaciones del modelo 
+                de homografía ante paralaje en escenas no planas.
+            </p>
+
+            <div class="image-container">
+                <img src="results/figures/punto_3/mediciones_visualizacion.jpg" alt="Visualización de mediciones">
+                <p class="image-caption">
+                    Figura 10: Visualización de todas las mediciones realizadas sobre la panorámica generada.
+                </p>
+            </div>
+
+            <!-- Análisis y Discusión -->
+            <h2>5. Análisis y Discusión</h2>
+
+            <h3>5.1 Comparación de Diferentes Métodos Probados</h3>
+            
+            <h4>Detectores de Características</h4>
+            <p>
+                La comparación sistemática de SIFT, ORB y AKAZE reveló diferencias significativas:
+            </p>
             <ul>
-                <li><strong>SIFT</strong>: Genera la mayor cantidad de características y matches, resultando en el registro más robusto. Sin embargo, es el más lento (32.75s). Produce la panorámica más precisa con mejor calidad visual.</li>
-                <li><strong>ORB</strong>: El más rápido (9.79s), pero genera significativamente menos características y matches. Aunque logra fusionar las imágenes exitosamente, puede tener menor precisión en algunas regiones.</li>
-                <li><strong>AKAZE</strong>: Balance entre velocidad y precisión (18.46s). Genera un número moderado de características, suficiente para un registro robusto. Buena opción cuando se necesita equilibrio entre calidad y tiempo de procesamiento.</li>
+                <li><strong>SIFT:</strong> Ofrece la mayor precisión (RMSE = 0.361 px) y robustez, aunque con mayor 
+                costo computacional. Ideal para aplicaciones donde la precisión es crítica.</li>
+                <li><strong>ORB:</strong> Significativamente más rápido pero con errores mucho mayores (RMSE = 3.366 px). 
+                No recomendado para aplicaciones que requieren alta precisión, aunque puede ser útil para aplicaciones 
+                en tiempo real con transformaciones muy pequeñas.</li>
+                <li><strong>AKAZE:</strong> Buen compromiso entre velocidad y precisión. Mejor error angular (0.009°) 
+                pero mayor error de traslación que SIFT. Alternativa versátil.</li>
             </ul>
-            
-            <h3>Panorámicas Generadas</h3>
-            
-            <p>Las siguientes panorámicas fueron generadas usando el algoritmo de pirámides con cada detector:</p>
-            
-            <div class="image-container">
-                <img src="results/panoramic/comparacion_panoramas_detectores_pyramid.jpg" alt="Comparación de Panoramas" onclick="openModal(this)">
-                <p class="image-caption">Comparación visual de las panorámicas generadas con SIFT, ORB y AKAZE. Se puede observar la diferencia en calidad de registro y suavidad de blending.</p>
-            </div>
-            
-            <h4>Panorámica con SIFT</h4>
-            
-            <div class="image-container">
-                <img src="results/panoramic/panorama_sift_pyramid.jpg" alt="Panorámica SIFT" onclick="openModal(this)">
-                <p class="image-caption">Panorámica generada usando SIFT. Mayor número de correspondencias resulta en mejor alineación y menos artefactos.</p>
-            </div>
-            
-            <h4>Panorámica con ORB</h4>
-            
-            <div class="image-container">
-                <img src="results/panoramic/panorama_orb_pyramid.jpg" alt="Panorámica ORB" onclick="openModal(this)">
-                <p class="image-caption">Panorámica generada usando ORB. Más rápida de computar pero con menor número de matches.</p>
-            </div>
-            
-            <h4>Panorámica con AKAZE</h4>
-            
-            <div class="image-container">
-                <img src="results/panoramic/panorama_akaze_pyramid.jpg" alt="Panorámica AKAZE" onclick="openModal(this)">
-                <p class="image-caption">Panorámica generada usando AKAZE. Buen balance entre velocidad y calidad de registro.</p>
-            </div>
-            
-            <h3>Análisis de Métricas</h3>
-            
-            <p>La siguiente visualización compara las métricas de rendimiento de los tres detectores:</p>
-            
-            <div class="image-container">
-                <img src="results/panoramic/comparacion_metricas_detectores_pyramid.jpg" alt="Comparación de Métricas" onclick="openModal(this)">
-                <p class="image-caption">Gráfico comparativo de métricas: tiempo de procesamiento, número de keypoints, matches e inliers para cada detector.</p>
-            </div>
-            
-            <h3>Observaciones y Desafíos</h3>
-            
-            <p>Durante la implementación y evaluación se identificaron varios aspectos importantes:</p>
-            
+
+            <h4>Técnicas de Blending</h4>
+            <p>
+                La comparación entre Feather blending y Laplacian Pyramid Blending mostró que:
+            </p>
             <ul>
-                <li><strong>Diferencia de orientación</strong>: La imagen 3 tiene orientación diferente (portrait vs landscape), lo que requiere transformaciones más complejas.</li>
-                <li><strong>Calidad del blending</strong>: El algoritmo de pirámides Laplacianas logra transiciones muy suaves, prácticamente imperceptibles en las regiones de solapamiento.</li>
-                <li><strong>Rendimiento</strong>: El tiempo de procesamiento varía significativamente entre detectores, siendo SIFT el más costoso pero también el más robusto.</li>
-                <li><strong>Tamaño del canvas</strong>: Las panorámicas finales tienen dimensiones grandes (aproximadamente 9000-10000 píxeles de ancho), lo que requiere consideraciones de memoria durante el procesamiento.</li>
+                <li><strong>Feather Blending:</strong> Más rápido computacionalmente pero produce halos visibles en 
+                zonas con diferencias de exposición.</li>
+                <li><strong>Laplacian Pyramid Blending:</strong> Más costoso pero produce transiciones más naturales 
+                y preserva mejor los detalles finos. Recomendado para panorámicas de alta calidad.</li>
             </ul>
+
+            <h3>5.2 Análisis de Errores y Limitaciones</h3>
             
+            <h4>Errores en Imágenes Sintéticas</h4>
+            <p>
+                Los resultados con imágenes sintéticas mostraron excelente precisión:
+            </p>
+            <ul>
+                <li><strong>RMSE promedio:</strong> 0.498 ± 0.312 px (precisión sub-píxel)</li>
+                <li><strong>Error angular promedio:</strong> 0.061 ± 0.072° (muy bajo)</li>
+                <li><strong>Error de escala promedio:</strong> 0.244 ± 0.304% (excelente)</li>
+            </ul>
+            <p>
+                Sin embargo, se observó que transformaciones más extremas (>25° rotación) pueden aumentar ligeramente 
+                los errores, aunque se mantienen dentro de rangos aceptables.
+            </p>
+
+            <h4>Limitaciones del Modelo de Homografía</h4>
+            <p>
+                En la aplicación a imágenes reales, identificamos varias limitaciones:
+            </p>
+            <ul>
+                <li><strong>Paralaje:</strong> El modelo de homografía asume una escena plana. En escenas con múltiples 
+                planos de profundidad (como el comedor con objetos cercanos y fondo), se observan duplicaciones y 
+                desplazamientos en objetos cercanos.</li>
+                <li><strong>Variaciones de Iluminación:</strong> Diferencias de exposición entre imágenes pueden producir 
+                transiciones visibles, aunque el Laplacian Pyramid Blending las mitiga significativamente.</li>
+                <li><strong>Campo Visual:</strong> Imágenes con ángulos muy diferentes requieren más interpolación en 
+                los bordes, aumentando áreas negras del warping.</li>
+            </ul>
+
+            <h4>Errores en Mediciones</h4>
+            <p>
+                El error del 69% en la validación con la mesa (medida estimada: 49.87 cm vs real: 161.1 cm) indica 
+                que el modelo de homografía no puede corregir completamente el paralaje. Esto es esperado ya que la 
+                mesa está en un plano diferente al cuadro de referencia usado para calibración.
+            </p>
+
+            <h3>5.3 Posibles Mejoras</h3>
+            
+            <p>
+                Basado en el análisis de resultados, proponemos las siguientes mejoras:
+            </p>
+
+            <h4>Mejoras Técnicas</h4>
+            <ul>
+                <li><strong>Bundle Adjustment:</strong> Implementar optimización global de todas las homografías 
+                simultáneamente para reducir errores acumulativos en panorámicas con múltiples imágenes.</li>
+                <li><strong>Seam Finding:</strong> Usar algoritmos de graph-cut o dynamic programming para encontrar 
+                costuras óptimas en zonas de transición, eliminando duplicaciones visibles.</li>
+                <li><strong>Equalización de Histograma:</strong> Aplicar normalización de histograma por canal antes 
+                del registro para uniformar la iluminación entre imágenes.</li>
+                <li><strong>Registro Jerárquico:</strong> Para transformaciones muy grandes, aplicar registro en múltiples 
+                niveles de escala para mejorar la robustez.</li>
+            </ul>
+
+            <h4>Mejoras en Captura</h4>
+            <ul>
+                <li><strong>Rotación alrededor del centro óptico:</strong> Capturar imágenes rotando solo alrededor 
+                del centro óptico de la cámara para minimizar paralaje.</li>
+                <li><strong>Mayor solape:</strong> Aumentar el solape entre imágenes consecutivas (60-70%) para mejorar 
+                la robustez del matching.</li>
+                <li><strong>Exposición consistente:</strong> Usar modo manual de exposición para mantener iluminación 
+                consistente entre capturas.</li>
+            </ul>
+
+            <h4>Mejoras en Calibración</h4>
+            <ul>
+                <li><strong>Múltiples objetos de referencia:</strong> Usar varios objetos de referencia en diferentes 
+                planos para calibrar mejor el paralaje.</li>
+                <li><strong>Modelos 3D:</strong> Para mediciones precisas en escenas no planas, considerar modelos 3D 
+                o técnicas de estructura desde movimiento (SfM).</li>
+            </ul>
+
+            <!-- Conclusiones -->
+            <h2>6. Conclusiones</h2>
+            
+            <p>
+                Este proyecto ha demostrado la efectividad de un pipeline de registro de imágenes basado en detección 
+                de características para crear panorámicas de alta calidad. Las principales conclusiones son:
+            </p>
+
+            <ol>
+                <li>
+                    <strong>Validación exitosa:</strong> El pipeline demostró excelente precisión en imágenes sintéticas 
+                    con RMSE promedio de 0.498 px y errores angulares menores a 0.1°, validando la correcta implementación 
+                    del sistema.
+                </li>
+                <li>
+                    <strong>SIFT como mejor detector:</strong> Entre los tres detectores evaluados, SIFT ofreció la mayor 
+                    precisión (RMSE = 0.361 px) y robustez, aunque con mayor costo computacional. ORB resultó inadecuado 
+                    para aplicaciones que requieren alta precisión debido a su RMSE significativamente mayor (3.366 px).
+                </li>
+                <li>
+                    <strong>Ratio test óptimo:</strong> El valor tradicional de 0.75 mantiene un balance apropiado 
+                    entre cantidad de correspondencias y calidad, aunque valores entre 0.6-0.75 ofrecen resultados 
+                    similares.
+                </li>
+                <li>
+                    <strong>Laplacian Pyramid Blending superior:</strong> El blending mediante pirámide laplaciana produjo 
+                    resultados visualmente superiores al feather blending, eliminando halos y preservando detalles finos.
+                </li>
+                <li>
+                    <strong>Limitaciones del modelo:</strong> El modelo de homografía tiene limitaciones ante paralaje en 
+                    escenas no planas, como se evidenció en los errores de medición. Esto es esperado y requiere técnicas 
+                    más avanzadas para corrección completa.
+                </li>
+                <li>
+                    <strong>Aplicabilidad práctica:</strong> El pipeline implementado es adecuado para crear panorámicas 
+                    de alta calidad en escenas con características distintivas y solape adecuado entre imágenes.
+                </li>
+            </ol>
+
+            <p>
+                El proyecto demuestra que la validación cuantitativa con imágenes sintéticas es esencial antes de aplicar 
+                algoritmos a imágenes reales, permitiendo entender limitaciones y optimizar parámetros de manera objetiva.
+            </p>
+
+            <!-- Referencias -->
+            <h2>7. Referencias</h2>
+            
+            <ol>
+                <li>
+                    Lowe, D. G. (2004). <em>Distinctive image features from scale-invariant keypoints</em>. 
+                    International Journal of Computer Vision, 60(2), 91-110.
+                </li>
+                <li>
+                    Rublee, E., Rabaud, V., Konolige, K., & Bradski, G. (2011). <em>ORB: An efficient 
+                    alternative to SIFT or SURF</em>. IEEE International Conference on Computer Vision (ICCV).
+                </li>
+                <li>
+                    Alcantarilla, P. F., Nuevo, J., & Bartoli, A. (2013). <em>Fast explicit diffusion for 
+                    accelerated features in nonlinear scale spaces</em>. British Machine Vision Conference (BMVC).
+                </li>
+                <li>
+                    Fischler, M. A., & Bolles, R. C. (1981). <em>Random sample consensus: a paradigm for 
+                    model fitting with applications to image analysis and automated cartography</em>. 
+                    Communications of the ACM, 24(6), 381-395.
+                </li>
+                <li>
+                    Burt, P. J., & Adelson, E. H. (1983). <em>A multiresolution spline with application to 
+                    image mosaics</em>. ACM Transactions on Graphics, 2(4), 217-236.
+                </li>
+                <li>
+                    Szeliski, R. (2022). <em>Computer Vision: Algorithms and Applications</em> (2nd ed.). 
+                    Springer. Chapter 6: Feature Detection and Matching.
+                </li>
+                <li>
+                    Hartley, R., & Zisserman, A. (2004). <em>Multiple View Geometry in Computer Vision</em> 
+                    (2nd ed.). Cambridge University Press. Chapter 4: Estimation - 2D Projective Transformations.
+                </li>
+                <li>
+                    Brown, M., & Lowe, D. G. (2007). <em>Automatic panoramic image stitching using invariant 
+                    features</em>. International Journal of Computer Vision, 74(1), 59-73.
+                </li>
+            </ol>
+
+            <!-- Análisis de Contribución Individual -->
+            <h2>8. Análisis de Contribución Individual</h2>
+            
+            <p>
+                Este proyecto fue desarrollado en equipo. A continuación se detalla la contribución de cada integrante:
+            </p>
+
+            <h3>8.1 Parte 1: Validación con Imágenes Sintéticas</h3>
+            <ul>
+                <li><strong>Carlos Andrés Viera Mosquera</strong> (<a href="mailto:cviera@unal.edu.co">cviera@unal.edu.co</a>)</li>
+            </ul>
+            <p>
+                Desarrollo completo de la validación con imágenes sintéticas, incluyendo:
+            </p>
+            <ul>
+                <li>Implementación de funciones para crear imágenes sintéticas con transformaciones conocidas</li>
+                <li>Desarrollo de las clases FeatureDetector, FeatureMatcher y RegistrationEvaluator</li>
+                <li>Ejecución de experimentos sobre 15 imágenes sintéticas con diferentes transformaciones</li>
+                <li>Comparación sistemática de detectores (SIFT, ORB, AKAZE) con análisis cuantitativo</li>
+                <li>Estudio del impacto del ratio test en el rango [0.5, 0.95]</li>
+                <li>Desarrollo de métricas de error (RMSE, error angular, error de traslación, error de escala)</li>
+                <li>Creación del notebook 01_registro_imagenes_proyecto.ipynb con documentación y visualizaciones</li>
+            </ul>
+
+            <h3>8.2 Parte 2: Registro de las Imágenes del Comedor</h3>
+            <ul>
+                <li><strong>Carlos Andrés Viera</strong>(<a href="mailto:cviera@unal.edu.co">cviera@unal.edu.co</a>)</li>
+                <li><strong>Yenifer Tatiana Guavita Ospino</strong> (<a href="mailto:yguavita@unal.edu.co">yguavita@unal.edu.co</a>)</li>
+            </ul>
+            <p>
+                Desarrollo conjunto del registro de imágenes reales y creación de panorámicas:
+            </p>
+            <ul>
+                <li>Implementación de la clase Stitcher con detección multi-escala y blending mediante pirámide laplaciana</li>
+                <li>Aplicación a imágenes reales: creación de panorámicas a partir de tres imágenes del comedor</li>
+                <li>Comparación de técnicas de blending (feather, laplacian pyramid)</li>
+                <li>Evaluación de diferentes detectores en el contexto de panorámicas</li>
+                <li>Creación del notebook 02_registro_imagenes_comedor.ipynb con análisis y resultados</li>
+            </ul>
+
+            <h3>8.3 Parte 3: Calibración y Medición</h3>
+            <ul>
+                <li><strong>Lina María Montoya Zuluaga</strong> (<a href="mailto:limontoyaz@unal.edu.co">limontoyaz@unal.edu.co</a>)</li>
+                <li><strong>Yojan Tamayo Montoya</strong> (<a href="mailto:ytamayom@unal.edu.co">ytamayom@unal.edu.co</a>)</li>
+            </ul>
+            <p>
+                Desarrollo conjunto del sistema de calibración y mediciones:
+            </p>
+            <ul>
+                <li>Implementación del sistema de calibración usando objetos de referencia</li>
+                <li>Desarrollo de funciones para medición de objetos sobre la panorámica generada</li>
+                <li>Creación del script interactivo punto3.py para mediciones</li>
+                <li>Validación de la calibración con objetos conocidos</li>
+                <li>Creación del notebook 03_registro_imagenes_calibracion_y_medicion.ipynb</li>
+                <li>Generación de visualizaciones con mediciones marcadas</li>
+            </ul>
+
+            <h3>8.4 Documentación y Reporte</h3>
+            <p>
+                La documentación del proyecto, incluyendo este reporte técnico, README.md y visualizaciones, fue desarrollada 
+                colaborativamente por todo el equipo.
+            </p>
+
             <div class="info-box">
-                <strong>📥 Datos Completos Disponibles</strong>
-                <p style="margin-bottom: 0;">Los resultados detallados están disponibles en:</p>
-                <ul style="margin-top: 8px;">
-                    <li><code>results/panoramic/comparacion_detectores_pyramid.csv</code> - Métricas comparativas</li>
-                    <li><code>results/panoramic/panorama_sift_pyramid.jpg</code> - Panorámica con SIFT</li>
-                    <li><code>results/panoramic/panorama_orb_pyramid.jpg</code> - Panorámica con ORB</li>
-                    <li><code>results/panoramic/panorama_akaze_pyramid.jpg</code> - Panorámica con AKAZE</li>
-                </ul>
+                <h4>📂 Repositorio del Proyecto</h4>
+                <p>
+                    El código completo de este proyecto, incluyendo todos los scripts de análisis, visualización y 
+                    notebooks interactivos, está disponible en GitHub. El repositorio incluye documentación detallada 
+                    para reproducir todos los experimentos presentados en este reporte.
+                </p>
             </div>
-            
-            <hr>
-            
-            <h2>Instalación y Uso</h2>
-            
-            <h3>Requisitos Previos</h3>
-            
-            <ul>
-                <li>Python 3.12 o superior</li>
-                <li>pip (gestor de paquetes de Python)</li>
-            </ul>
-            
-            <h3>Instalación</h3>
-            
-            <pre><code># Crear entorno virtual
-python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Instalar dependencias
-pip install -r requirements.txt
-
-# Ejecutar notebook
-jupyter notebook notebooks/01_registro_imagenes_proyecto.ipynb</code></pre>
-            
-            <h3>Estructura del Proyecto</h3>
-            
-            <pre><code>proyecto-registro-imagenes/
-├── src/              # Módulos de código fuente
-│   ├── feature_detection.py
-│   ├── matching.py
-│   ├── registration.py
-│   ├── evaluator.py
-│   ├── stitcher.py   # Algoritmo de stitching con pirámides
-│   └── utils.py
-├── notebooks/        # Jupyter notebooks
-│   ├── 01_registro_imagenes_proyecto.ipynb  # Parte 1: Validación sintética
-│   └── 02_registro_imagenes_comedor.ipynb  # Parte 2: Registro panorámico
-├── data/            # Imágenes de prueba
-│   ├── original/    # Imágenes reales del comedor (3 imágenes)
-│   └── synthetic/   # Dataset sintético (15 imágenes)
-└── results/         # Resultados y visualizaciones
-    ├── figures/     # Gráficos y visualizaciones
-    │   └── punto_1/ # Resultados de la Parte 1
-    ├── measurements/ # Datos CSV con métricas
-    │   └── punto_1/ # Métricas de la Parte 1
-    └── panoramic/    # Resultados panorámicos de la Parte 2</code></pre>
-            
-            <hr>
-            
-            <h2>Referencias</h2>
-            
-            <ul>
-                <li>Lowe, D. G. (2004). Distinctive Image Features from Scale-Invariant Keypoints. <em>International Journal of Computer Vision</em>, 60(2), 91-110.</li>
-                <li>Hartley, R., & Zisserman, A. (2003). <em>Multiple View Geometry in Computer Vision</em> (2nd ed.). Cambridge University Press.</li>
-                <li>Burt, P. J., & Adelson, E. H. (1983). The Laplacian Pyramid as a Compact Image Code. <em>IEEE Transactions on Communications</em>, 31(4), 532-540.</li>
-                <li><a href="https://docs.opencv.org/" target="_blank">OpenCV Documentation</a></li>
-                <li><a href="https://docs.opencv.org/4.x/dc/dc3/tutorial_py_matcher.html" target="_blank">OpenCV Feature Matching Tutorial</a></li>
-            </ul>
-            
-            <div style="margin-top: 40px; text-align: center;">
-                <a href="README.md" class="button">📖 Leer README Completo</a>
-                <a href="notebooks/01_registro_imagenes_proyecto.ipynb" class="button secondary">📓 Notebook Parte 1</a>
-                <a href="notebooks/02_registro_imagenes_comedor.ipynb" class="button secondary">📓 Notebook Parte 2</a>
-            </div>
         </article>
-        
-        <footer>
-            <p>© 2025 Universidad Nacional de Colombia - Departamento de Ciencias de la Computación y de la Decisión</p>
-            <p style="margin-top: 8px;">Trabajo académico - Visión por Computador 3009228</p>
-        </footer>
     </div>
-    
-    <!-- Modal for full-size images -->
-    <div id="imageModal" class="modal">
-        <span class="close">&times;</span>
-        <img class="modal-content" id="modalImage">
-    </div>
-    
-    <script>
-        // Modal functionality
-        var modal = document.getElementById("imageModal");
-        var modalImg = document.getElementById("modalImage");
-        var span = document.getElementsByClassName("close")[0];
-        
-        function openModal(img) {
-            modal.style.display = "block";
-            modalImg.src = img.src;
-        }
-        
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
-        
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
 </body>
 </html>
