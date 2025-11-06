@@ -299,15 +299,21 @@ Las panorámicas generadas se encuentran en `results/panoramic/`:
 
 ## 📚 Referencias
 
-1. Lowe, D. G. (2004). Distinctive Image Features from Scale-Invariant Keypoints. *International Journal of Computer Vision*, 60(2), 91-110.
+1. Lowe, D. G. (2004). *Distinctive image features from scale-invariant keypoints*. International Journal of Computer Vision, 60(2), 91-110.
 
-2. Hartley, R., & Zisserman, A. (2003). *Multiple View Geometry in Computer Vision* (2nd ed.). Cambridge University Press.
+2. Rublee, E., Rabaud, V., Konolige, K., & Bradski, G. (2011). *ORB: An efficient alternative to SIFT or SURF*. IEEE International Conference on Computer Vision (ICCV).
 
-3. OpenCV Documentation: [Feature Matching](https://docs.opencv.org/4.x/dc/dc3/tutorial_py_matcher.html)
+3. Alcantarilla, P. F., Nuevo, J., & Bartoli, A. (2013). *Fast explicit diffusion for accelerated features in nonlinear scale spaces*. British Machine Vision Conference (BMVC).
 
-4. OpenCV Documentation: [Finding Homography](https://docs.opencv.org/4.x/d9/dab/tutorial_homography.html)
+4. Fischler, M. A., & Bolles, R. C. (1981). *Random sample consensus: a paradigm for model fitting with applications to image analysis and automated cartography*. Communications of the ACM, 24(6), 381-395.
 
-5. PyImageSearch: [Image Stitching](https://www.pyimagesearch.com/2018/12/17/image-stitching-with-opencv-and-python/)
+5. Burt, P. J., & Adelson, E. H. (1983). *A multiresolution spline with application to image mosaics*. ACM Transactions on Graphics, 2(4), 217-236.
+
+6. Szeliski, R. (2022). *Computer Vision: Algorithms and Applications* (2nd ed.). Springer. Chapter 6: Feature Detection and Matching.
+
+7. Hartley, R., & Zisserman, A. (2004). *Multiple View Geometry in Computer Vision* (2nd ed.). Cambridge University Press. Chapter 4: Estimation - 2D Projective Transformations.
+
+8. Brown, M., & Lowe, D. G. (2007). *Automatic panoramic image stitching using invariant features*. International Journal of Computer Vision, 74(1), 59-73.
 
 ## 🔗 Enlaces Útiles
 
@@ -323,7 +329,7 @@ Este trabajo fue desarrollado en equipo por:
   - Carlos Andrés Viera Mosquera (cviera@unal.edu.co)
 
 - **Parte 2: Registro de las Imágenes del Comedor**
-  - Carlos Andrés Viera
+  - Carlos Andrés Viera Mosquera (cviera@unal.edu.co)
   - Yenifer Tatiana Guavita Ospino (yguavita@unal.edu.co)
 
 - **Parte 3: Calibración y Medición**
