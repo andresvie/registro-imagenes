@@ -10,7 +10,7 @@ Este proyecto implementa técnicas de registro de imágenes (image registration)
 
 1. **Parte 1: Validación con Imágenes Sintéticas (30%)** - Implementado ✅
 2. **Parte 2: Registro de las Imágenes del Comedor (40%)** - En progreso
-3. **Parte 3: Calibración y Medición (30%)** - Pendiente
+3. **Parte 3: Calibración y Medición (30%)** - En progreso
 
 ## 🎯 Objetivo
 
@@ -36,16 +36,17 @@ proyecto-registro-imagenes/
 │   ├── feature_detection.py                          # Detección de características (SIFT, ORB, AKAZE)
 │   ├── matching.py                                   # Emparejamiento de características
 │   ├── registration.py                               # Registro y fusión de imágenes
-│   ├── measurement.py                                # Calibración y medición (Pendiente)
-│   └── utils.py                                      # Utilidades generales
+│   ├── evaluator.py                                  # Evaluación de parámetros y estudios
+│   ├── utils.py                                      # Utilidades generales
+│   └── measurement.py                                # Calibración y medición (Pendiente)
 ├── notebooks/
-│   ├── 01_exploratory_analysis.ipynb                 # Análisis exploratorio (Pendiente)
-│   ├── 02_synthetic_validation.ipynb                # Validación con imágenes sintéticas ✅
-│   └── 03_main_pipeline.ipynb                       # Pipeline principal (Pendiente)
+│   └── 01_registro_imagenes_proyecto.ipynb          # Validación con imágenes sintéticas ✅
 ├── results/
-│   ├── figures/                                      # Gráficas y visualizaciones
-│   └── measurements/                                 # Resultados de mediciones
-└── tests/                                            # Pruebas unitarias (Opcional)
+│   ├── figures/
+│   │   └── punto_1/                                 # Figuras de validación sintética
+│   └── measurements/
+│       └── punto_1/                                  # Mediciones de validación sintética
+└── tests/                                            # Pruebas unitarias ✅
 ```
 
 ## 🚀 Instalación
@@ -78,12 +79,12 @@ Para ejecutar la validación con imágenes sintéticas:
 
 1. **Abrir Jupyter Notebook**:
 ```bash
-jupyter notebook notebooks/02_synthetic_validation.ipynb
+jupyter notebook notebooks/01_registro_imagenes_proyecto.ipynb
 ```
 
 O usando JupyterLab:
 ```bash
-jupyter lab notebooks/02_synthetic_validation.ipynb
+jupyter lab notebooks/01_registro_imagenes_proyecto.ipynb
 ```
 
 2. **Ejecutar todas las celdas** del notebook. Este notebook:
@@ -97,9 +98,25 @@ jupyter lab notebooks/02_synthetic_validation.ipynb
 
 El notebook genera:
 - Imágenes sintéticas base y transformadas en `data/synthetic/`
-- Visualizaciones de matches y registros en `results/figures/`
+- Visualizaciones de matches y registros en `results/figures/punto_1/`
 - Gráficos comparativos de diferentes métodos de detección
 - Análisis del efecto de parámetros en la calidad del registro
+- Datasets de resultados y métricas en `results/measurements/punto_1/`
+
+### Pruebas Unitarias
+
+El proyecto incluye pruebas unitarias completas:
+
+```bash
+pytest tests/
+```
+
+Las pruebas cubren:
+- Detección de características
+- Emparejamiento de características
+- Registro de imágenes
+- Evaluación de parámetros
+- Utilidades
 
 ## 🔧 Funcionalidades Implementadas
 
@@ -124,27 +141,43 @@ El notebook genera:
    - Cálculo de métricas de error
    - Visualización de resultados
 
+5. **`src/evaluator.py`**: Evaluación de parámetros
+   - Estudios de parámetros (ratio test, detectores)
+   - Análisis del efecto de parámetros en la calidad del registro
+
 ## 📊 Métricas de Validación
 
 La Parte 1 calcula las siguientes métricas:
 - **RMSE (Root Mean Square Error)**: Error en la matriz de homografía y en puntos
 - **Error de Rotación**: Diferencia en grados entre rotación verdadera y estimada
 - **Error de Escala**: Diferencia en el factor de escala
+- **Error de Traslación**: Diferencia en píxeles entre traslación verdadera y estimada
 - **Número de Inliers**: Cantidad de matches válidos después de RANSAC
+- **Número de Matches**: Total de correspondencias encontradas
 
 ## 📈 Resultados Preliminares
 
 ### Comparación de Detectores
 
-- **SIFT**: Generalmente el más robusto y preciso
-- **ORB**: Más rápido pero menos preciso en algunos casos
-- **AKAZE**: Buen balance entre velocidad y precisión
+Los resultados completos están disponibles en `results/measurements/punto_1/comparacion_detectores.csv`:
+- **SIFT**: Generalmente el más robusto y preciso, mejor para transformaciones complejas
+- **ORB**: Más rápido pero menos preciso en algunos casos, adecuado para tiempo real
+- **AKAZE**: Buen balance entre velocidad y precisión, robusto a variaciones de iluminación
 
 ### Efecto de Parámetros
 
+Estudio detallado disponible en `results/measurements/punto_1/estudio_ratio_test.csv`:
 - El `ratio_threshold` afecta significativamente la calidad del registro
-- Valor óptimo típicamente entre 0.7-0.8
+- Valor óptimo típicamente entre 0.7-0.8 para la mayoría de casos
 - Factores que afectan la calidad: rotación grande, escala diferente, combinación de transformaciones
+- Se incluyen visualizaciones en `results/figures/punto_1/estudio_ratio_test.png`
+
+### Resultados del Dataset Completo
+
+Análisis exhaustivo sobre múltiples transformaciones sintéticas en `results/measurements/punto_1/resultados_dataset.csv`, incluyendo:
+- Análisis de errores por tipo de transformación
+- Distribución de inliers y matches
+- Comparación de precisión entre detectores
 
 ## 🔮 Próximos Pasos
 
@@ -180,7 +213,7 @@ Este proyecto es parte de un trabajo académico de la Universidad Nacional de Co
 
 ## 🔗 Enlaces Útiles
 
-- [GitHub Pages del Proyecto](https://tu-usuario.github.io/proyecto-registro-imagenes/)
+- [GitHub Pages del Proyecto](https://andresvie.github.io/proyecto-registro-imagenes/)
 - [Documentación de OpenCV](https://docs.opencv.org/)
 - [Paper original de SIFT](https://www.cs.ubc.ca/~lowe/papers/ijcv04.pdf)
 

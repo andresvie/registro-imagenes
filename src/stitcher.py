@@ -6,13 +6,13 @@ from src.feature_detection import FeatureDetector
 
 class Stitcher:
     """
-    Fusión de imágenes panorámicas usando el algoritmo de pirámide de imagen
+    Panorama image stitching using Image Pyramid Algorithm
     
-    Mejoras clave sobre la fusión básica:
-    1. Pirámide Gaussiana para detección multi-escala de características
-    2. Pirámide Laplaciana para mezcla multi-banda
-    3. Manejo mejorado de diferencias de exposición
-    4. Transiciones más suaves en regiones de superposición
+    Key improvements over basic stitching:
+    1. Gaussian Pyramid for multi-scale feature detection
+    2. Laplacian Pyramid for multi-band blending
+    3. Better handling of exposure differences
+    4. Smoother transitions in overlapping regions
     """
     
     def __init__(self, num_pyramid_levels=4, detector: FeatureDetector = None, matcher: FeatureMatcher = None):
@@ -23,7 +23,7 @@ class Stitcher:
 
     def build_gaussian_pyramid(self, image, levels):
         """
-        Construir pirámide Gaussiana para representación multi-escala
+        Build Gaussian pyramid for multi-scale representation
         """
         pyramid = [image]
         for i in range(levels - 1):
@@ -33,35 +33,35 @@ class Stitcher:
     
     def build_laplacian_pyramid(self, image, levels):
         """
-        Construir pirámide Laplaciana para mezcla multi-banda
-        Pirámide Laplaciana almacena la diferencia entre niveles Gaussiano
+        Build Laplacian pyramid for multi-band blending
+        Laplacian pyramid stores the difference between Gaussian levels
         """
         gaussian_pyramid = self.build_gaussian_pyramid(image, levels)
         laplacian_pyramid = []
         
         for i in range(levels - 1):
-            # Expandir el nivel superior y restar del nivel actual
+            # Expand the higher level and subtract from current level
             expanded = cv2.pyrUp(gaussian_pyramid[i + 1])
-            # Manejar desajuste de tamaño
+            # Handle size mismatch
             h, w = gaussian_pyramid[i].shape[:2]
             expanded = expanded[:h, :w]
             laplacian = cv2.subtract(gaussian_pyramid[i], expanded)
             laplacian_pyramid.append(laplacian)
         
-        # Agregar el nivel Gaussiano más pequeño como el top de la pirámide Laplaciana
+        # Add the smallest Gaussian level as the top of Laplacian pyramid
         laplacian_pyramid.append(gaussian_pyramid[-1])
         
         return laplacian_pyramid
     
     def reconstruct_from_laplacian_pyramid(self, laplacian_pyramid):
         """
-        Reconstruir imagen desde pirámide Laplaciana
+        Reconstruct image from Laplacian pyramid
         """
         image = laplacian_pyramid[-1]
         
         for i in range(len(laplacian_pyramid) - 2, -1, -1):
             expanded = cv2.pyrUp(image)
-            # Manejar desajuste de tamaño
+            # Handle size mismatch
             h, w = laplacian_pyramid[i].shape[:2]
             expanded = expanded[:h, :w]
             image = cv2.add(expanded, laplacian_pyramid[i])
@@ -70,10 +70,10 @@ class Stitcher:
     
     def detect_and_describe_multiscale(self, image):
         """
-        Detectar keypoints y computar descriptores usando enfoque multi-escala
+        Detect keypoints and compute descriptors using multi-scale approach
         Uses Gaussian pyramid for better feature detection at different scales
         """
-        # Construir pirámide Gaussiana
+        # Build Gaussian pyramid
         pyramid = self.build_gaussian_pyramid(image, 3)
         
         all_keypoints = []
@@ -84,7 +84,7 @@ class Stitcher:
             kp, desc = self.detector.detect_and_compute(gray)
             
             if desc is not None and len(kp) > 0:
-                # Escalar keypoints de nuevo a tamaño original de la imagen
+                # Scale keypoints back to original image size
                 scale_factor = 2 ** level
                 for keypoint in kp:
                     keypoint.pt = (keypoint.pt[0] * scale_factor, 
@@ -94,7 +94,7 @@ class Stitcher:
                 all_keypoints.extend(kp)
                 all_descriptors.append(desc)
         
-        # Combinar todos los descriptores
+        # Combine all descriptors
         if len(all_descriptors) > 0:
             combined_descriptors = np.vstack(all_descriptors)
         else:
@@ -109,7 +109,7 @@ class Stitcher:
     
     def find_homography_ransac(self, kp1, kp2, matches):
         """
-        Encontrar matriz de homografía usando RANSAC
+        Find homography matrix using RANSAC
         """
         
         
@@ -119,39 +119,39 @@ class Stitcher:
     
     def create_blend_mask(self, shape, img1_region, img2_region, overlap_region, feather_amount=50):
         """
-        Crear máscaras de mezcla suaves usando la transformada de distancia para una mezcla suave
+        Create smooth blending masks using distance transform for seamless blending
         """
         h, w = shape[:2]
         mask1 = np.zeros((h, w), dtype=np.float32)
         mask2 = np.zeros((h, w), dtype=np.float32)
         
-        # Establecer máscaras base
+        # Set base masks
         mask1[img1_region] = 1.0
         mask2[img2_region] = 1.0
         
         if overlap_region.sum() > 0:
-            # Crear transición suave en la región de superposición usando la transformada de distancia
+            # Create smooth transition in overlap region using distance transform
             overlap_mask = overlap_region.astype(np.uint8)
             
-            # Distancia desde el borde de img1
+            # Distance from img1's edge
             img1_only = np.logical_and(img1_region, np.logical_not(img2_region)).astype(np.uint8)
             dist1 = cv2.distanceTransform(overlap_mask, cv2.DIST_L2, 5)
             
-            # Distancia desde el borde de img2
+            # Distance from img2's edge
             img2_only = np.logical_and(img2_region, np.logical_not(img1_region)).astype(np.uint8)
             dist2 = cv2.distanceTransform(overlap_mask, cv2.DIST_L2, 5)
             
-            # Crear transición suave
+            # Create smooth transition
             if dist1.max() > 0 and dist2.max() > 0:
-                # Normalizar distancias
+                # Normalize distances
                 weight1 = dist1 / (dist1 + dist2 + 1e-6)
                 weight2 = 1.0 - weight1
                 
-                # Aplicar suavizado Gaussiano para una transición más suave
+                # Apply Gaussian smoothing for even smoother transition
                 weight1 = cv2.GaussianBlur(weight1, (feather_amount*2+1, feather_amount*2+1), feather_amount/3)
                 weight2 = cv2.GaussianBlur(weight2, (feather_amount*2+1, feather_amount*2+1), feather_amount/3)
                 
-                # Normalizar
+                # Normalize
                 total = weight1 + weight2
                 weight1 = weight1 / (total + 1e-6)
                 weight2 = weight2 / (total + 1e-6)
@@ -163,13 +163,13 @@ class Stitcher:
     
     def pyramid_blend(self, img1, img2, mask1, mask2, levels=None):
         """
-        Mezcla multi-banda usando pirámides Laplacianas
-        Esto crea mezclas suaves fusionando diferentes bandas de frecuencia por separado
+        Multi-band blending using Laplacian pyramids
+        This creates seamless blends by blending different frequency bands separately
         """
         if levels is None:
             levels = self.num_pyramid_levels
         
-        # Asegurar que las imágenes sean float
+        # Ensure images are float
         img1 = img1.astype(np.float32)
         img2 = img2.astype(np.float32)
         
@@ -177,14 +177,14 @@ class Stitcher:
         lap_pyr1 = self.build_laplacian_pyramid(img1, levels)
         lap_pyr2 = self.build_laplacian_pyramid(img2, levels)
         
-        # Construir pirámide Gaussiana para máscaras
+        # Build Gaussian pyramid for masks
         mask1_pyramid = self.build_gaussian_pyramid(mask1, levels)
         mask2_pyramid = self.build_gaussian_pyramid(mask2, levels)
         
-        # Mezclar cada nivel
+        # Blend each level
         blended_pyramid = []
         for i in range(levels):
-            # Expandir máscara a 3 canales si es necesario
+            # Expand mask to 3 channels if needed
             if len(lap_pyr1[i].shape) == 3:
                 m1 = np.dstack([mask1_pyramid[i]] * 3)
                 m2 = np.dstack([mask2_pyramid[i]] * 3)
@@ -196,44 +196,44 @@ class Stitcher:
             blended = lap_pyr1[i] * m1 + lap_pyr2[i] * m2
             blended_pyramid.append(blended)
         
-        # Reconstruir desde la pirámide mezclada
+        # Reconstruct from blended pyramid
         result = self.reconstruct_from_laplacian_pyramid(blended_pyramid)
         
-        # Recortar valores a rango válido
+        # Clip values to valid range
         result = np.clip(result, 0, 255).astype(np.uint8)
         
         return result
     
     def warp_images(self, img1, img2, H):
         """
-        Transformar img1 al sistema de coordenadas de img2 usando homografía H
+        Warp img1 to img2's coordinate system using homography H
         """
         h1, w1 = img1.shape[:2]
         h2, w2 = img2.shape[:2]
         
-        # Obtener esquinas
+        # Get corners
         corners1 = np.float32([[0, 0], [0, h1], [w1, h1], [w1, 0]]).reshape(-1, 1, 2)
         corners2 = np.float32([[0, 0], [0, h2], [w2, h2], [w2, 0]]).reshape(-1, 1, 2)
         
-        # Transformar esquinas
+        # Warp corners
         warped_corners1 = cv2.perspectiveTransform(corners1, H)
         
-        # Obtener límites
+        # Get bounds
         all_corners = np.concatenate((warped_corners1, corners2), axis=0)
         [x_min, y_min] = np.int32(all_corners.min(axis=0).ravel() - 0.5)
         [x_max, y_max] = np.int32(all_corners.max(axis=0).ravel() + 0.5)
         
-        # Traslación
+        # Translation
         translation = np.array([[1, 0, -x_min],
                                [0, 1, -y_min],
                                [0, 0, 1]])
         
         output_size = (x_max - x_min, y_max - y_min)
         
-        # Transformar img1
+        # Warp img1
         warped_img1 = cv2.warpPerspective(img1, translation.dot(H), output_size)
         
-        # Crear lienzo para img2
+        # Create canvas for img2
         canvas = np.zeros((output_size[1], output_size[0], 3), dtype=np.uint8)
         canvas[-y_min:-y_min+h2, -x_min:-x_min+w2] = img2
         
@@ -241,16 +241,16 @@ class Stitcher:
     
     def blend_with_pyramids(self, warped_img1, canvas):
         """
-        Mezcla de dos imágenes usando mezcla de pirámide para resultados suaves
+        Blend two images using pyramid blending for seamless results
         """
-        # Crear máscaras
+        # Create masks
         mask1_binary = (warped_img1.sum(axis=2) > 0).astype(np.uint8)
         mask2_binary = (canvas.sum(axis=2) > 0).astype(np.uint8)
         
-        # Encontrar región de superposición
+        # Find overlapping region
         overlap = np.logical_and(mask1_binary, mask2_binary)
         
-        # Crear máscaras de mezcla suaves
+        # Create smooth blending masks
         mask1, mask2 = self.create_blend_mask(
             warped_img1.shape, 
             mask1_binary.astype(bool), 
@@ -259,26 +259,26 @@ class Stitcher:
             feather_amount=10
         )
         
-        # Usar mezcla de pirámide
+        # Use pyramid blending
         result = self.pyramid_blend(warped_img1, canvas, mask1, mask2)
         
         return result
     
     def stitch_pair(self, img1, img2):
         """
-        Fusión de dos imágenes usando enfoque de pirámide
+        Stitch two images using pyramid-based approach
         """
         print(f"Image 1 shape: {img1.shape}")
         print(f"Image 2 shape: {img2.shape}")
         
-        # 1. Detectar características usando pirámide
+        # 1. Multi-scale feature detection
         print("Detecting features with pyramid...")
         kp1, desc1 = self.detect_and_describe_multiscale(img1)
         kp2, desc2 = self.detect_and_describe_multiscale(img2)
         print(f"Found {len(kp1)} keypoints in image 1 (multi-scale)")
         print(f"Found {len(kp2)} keypoints in image 2 (multi-scale)")
         
-        # 2. Emparejar características
+        # 2. Match features
         print("Matching features...")
         matches = self.match_features(desc1, desc2)
         print(f"Found {len(matches)} good matches")
@@ -287,7 +287,7 @@ class Stitcher:
             print("Not enough matches found!")
             return None
         
-        # 3. Encontrar la homografía
+        # 3. Find homography
         print("Computing homography...")
         H, mask = self.find_homography_ransac(kp1, kp2, matches)
         
@@ -298,11 +298,11 @@ class Stitcher:
         inliers = mask.ravel().sum()
         print(f"Homography computed with {inliers} inliers")
         
-        # 4. Transformar las imágenes
+        # 4. Warp images
         print("Warping images...")
         warped_img1, canvas, offset = self.warp_images(img1, img2, H)
         
-        # 5. Mezclar las imágenes usando el algoritmo de pirámide
+        # 5. Pyramid blending
         print("Blending with pyramid algorithm...")
         result = self.blend_with_pyramids(warped_img1, canvas)
         
@@ -310,31 +310,31 @@ class Stitcher:
     
     def stitch_multiple(self, images: List[np.ndarray]):
         """
-        Fusión de múltiples imágenes usando enfoque de pirámide
+        Stitch multiple images using pyramid approach
         """
         if len(images) < 2:
             return images[0] if len(images) == 1 else None
         
-        # Usar la imagen del medio como referencia
+        # Use middle image as reference
         middle_idx = len(images) // 2
-        print(f"\n=== Usando imagen {middle_idx + 1} como referencia ===")
+        print(f"\n=== Using image {middle_idx + 1} as reference ===")
         result = images[middle_idx]
         
-        # Pegar a la derecha
+        # Stitch to the right
         for i in range(middle_idx + 1, len(images)):
-            print(f"\n=== Fusión de imagen {i + 1} (derecha) ===")
+            print(f"\n=== Stitching image {i + 1} (right) ===")
             stitch_output = self.stitch_pair(result, images[i])
             if stitch_output is None:
-                print(f"No se pudo fusionar la imagen {i + 1}")
+                print(f"Failed to stitch image {i + 1}")
                 return None
             result = stitch_output[0]
         
-        # Pegar a la izquierda
+        # Stitch to the left
         for i in range(middle_idx - 1, -1, -1):
-            print(f"\n=== Fusión de imagen {i + 1} (izquierda) ===")
+            print(f"\n=== Stitching image {i + 1} (left) ===")
             stitch_output = self.stitch_pair(images[i], result)
             if stitch_output is None:
-                print(f"No se pudo fusionar la imagen {i + 1}")
+                print(f"Failed to stitch image {i + 1}")
                 return None
             result = stitch_output[0]
         

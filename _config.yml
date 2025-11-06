@@ -22,7 +22,6 @@ exclude:
   - venv/
   - .git/
   - __pycache__/
-  - *.pyc
   - .DS_Store
 
 # Configuración de Markdown
